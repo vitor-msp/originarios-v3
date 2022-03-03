@@ -1,0 +1,55 @@
+/*************************** inicio geral ***************************/
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/*************************** fim geral ***************************/
+
+/*************************** inicio navbar ***************************/
+.navbar-dark .navbar-nav .nav-link,
+nav .col-3 a,
+nav .col-3 a:focus {
+  color: rgba(255, 255, 255, 0.9);
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+nav .col-3 a:hover {
+  color: rgba(255, 255, 255, 1);
+  font-size: 1.1em;
+}
+.activeNav {
+  color: rgba(255, 255, 255, 1) !important;
+  text-decoration: underline 2px;
+  text-underline-offset: 2.5px;
+}
+/*************************** fim navbar ***************************/
+
+/*************************** inicio background ***************************/
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+body {
+  animation: gradient 10s ease infinite;
+  background: linear-gradient(-90deg, #82b3fb, #0d6efd, #486ba8, #7ca4eb)
+    repeat-y;
+  background-size: 300% 300%;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.bg-opac {
+  background-color: rgba(255, 255, 255, 0.65);
+  border: none;
+  border-radius: 15px;
+}
+/*************************** fim background ***************************/
+
+/*************************** inicio home ***************************/
+/*************************** fim home ***************************/
