@@ -1,3 +1,4 @@
+import { FormMeusDados } from "../components/meusDados/FormMeusDados";
 
 export function PaginaMeusDados() {
   return (
@@ -5,7 +6,7 @@ export function PaginaMeusDados() {
       <h1 className="display-6 mb-5">
         <strong>Meus Dados</strong>
       </h1>
-      {/* <FormMeusDados /> */}
+      <FormMeusDados />
     </div>
   );
 }

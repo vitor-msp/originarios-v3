@@ -5,7 +5,6 @@ import {deleteProduto} from '../../api/api'
 import { actionMeuProdutoSelecionado } from "../../store/actions/produtos/meuProdutoSelecionado.action";
 import { actionDeleteProduto } from "../../store/actions/produtos/meusProdutos.action";
 
-
 export function VerProduto({ publico }) {
   const produtoSelecionado = useSelector((state) => state.produtoSelecionado)
   const meuProdutoSelecionado = useSelector((state) => state.meuProdutoSelecionado)

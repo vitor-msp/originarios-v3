@@ -31,6 +31,12 @@ export function Navbar() {
               </li>
 
               <li className="nav-item">
+                <NavLink to={"/Contato"} className={"text-light"}>
+                  Contato
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
                 <NavLink to={"/Produtos"} className={"text-light"}>
                   Produtos
                 </NavLink>
@@ -39,12 +45,6 @@ export function Navbar() {
               <li className="nav-item">
                 <NavLink to={"/Publicacoes"} className={"text-light"}>
                   Publicacoes
-                </NavLink>
-              </li>
-
-              <li className="nav-item">
-                <NavLink to={"/Contato"} className={"text-light"}>
-                  Contato
                 </NavLink>
               </li>
 
@@ -65,7 +65,7 @@ export function Navbar() {
       </div>
 
       <div className="col-4 d-flex justify-content-center align-items-center">
-        <NavLink to={"/Registrar"} className={"text-light"}>
+        <NavLink to={"/Registro"} className={"text-light"}>
           Registrar
         </NavLink>
 

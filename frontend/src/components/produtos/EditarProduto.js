@@ -14,7 +14,7 @@ export function EditarProduto({ novoProduto }) {
   const dispatch = useDispatch();
 
   const salvarProduto = async (produto) => {
-    if (produtoValido(produto)) {
+    if (validarProduto(produto)) {
       try {
         let res = novoProduto
           ? await postProduto(produto)
@@ -36,7 +36,7 @@ export function EditarProduto({ novoProduto }) {
     }
   };
 
-  const produtoValido = (produto) => {
+  const validarProduto = (produto) => {
     // valida campos
     // se campos validos => return true
   };

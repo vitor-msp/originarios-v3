@@ -27,7 +27,6 @@ export function ListaProdutos({ publico }) {
           // dispatch(atualizarFeedback(res.data.message, false));
         }
       } catch (error) {
-        dispatch();
         // atualizarFeedback("Erro na comunicação com o servidor!", false)
       }
     };

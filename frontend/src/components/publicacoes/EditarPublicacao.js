@@ -14,7 +14,7 @@ export function EditarPublicacao({ novaPublicacao }) {
   const dispatch = useDispatch();
 
   const salvarPublicacao = async (publicacao) => {
-    if (publicacaoValida(publicacao)) {
+    if (validarPublicacao(publicacao)) {
       try {
         let res = novaPublicacao
           ? await postPublicacao(publicacao)
@@ -36,7 +36,7 @@ export function EditarPublicacao({ novaPublicacao }) {
     }
   };
 
-  const publicacaoValida = (publicacao) => {
+  const validarPublicacao = (publicacao) => {
     // valida campos
     // se campos validos => return true
   };

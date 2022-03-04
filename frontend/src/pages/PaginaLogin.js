@@ -1,3 +1,4 @@
+import { FormLogin } from "../components/login/FormLogin";
 
 export function PaginaLogin() {
   return (
@@ -5,7 +6,7 @@ export function PaginaLogin() {
       <h1 className="display-6 mb-5">
         <strong>Login</strong>
       </h1>
-      {/* <FormLogin /> */}
+      <FormLogin />
     </div>
   );
 }

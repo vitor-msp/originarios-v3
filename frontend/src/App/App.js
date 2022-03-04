@@ -40,42 +40,48 @@ function App() {
 
               {/* Produtos */}
               <Route path="/Produtos" element={<PaginaProdutos />}></Route>
+              <Route path="/VerProduto" element={<PaginaVerProduto />}></Route>
               <Route
                 path="/MeusProdutos"
                 element={<PaginaMeusProdutos />}
               ></Route>
-              <Route path="/VerProduto" element={<PaginaVerProduto />}></Route>
               <Route
                 path="/VerMeuProduto"
                 element={<PaginaVerMeuProduto />}
               ></Route>
               <Route
-                path="/EditarProduto"
-                element={<PaginaEditarProduto />}
-              ></Route>
-              <Route
                 path="/CriarProduto"
                 element={<PaginaCriarProduto />}
               ></Route>
+              <Route
+                path="/EditarProduto"
+                element={<PaginaEditarProduto />}
+              ></Route>
 
               {/* Publicacoes */}
-              <Route path="/Publicacoes" element={<PaginaPublicacoes />}></Route>
+              <Route
+                path="/Publicacoes"
+                element={<PaginaPublicacoes />}
+              ></Route>
+              <Route
+                path="/VerPublicacao"
+                element={<PaginaVerPublicacao />}
+              ></Route>
               <Route
                 path="/MinhasPublicacoes"
                 element={<PaginaMinhasPublicacoes />}
               ></Route>
-              <Route path="/VerPublicacao" element={<PaginaVerPublicacao />}></Route>
               <Route
                 path="/VerMinhaPublicacao"
                 element={<PaginaVerMinhaPublicacao />}
               ></Route>
               <Route
-                path="/EditarPublicacao"
-                element={<PaginaEditarPublicacao />}
-              ></Route>
-              <Route
                 path="/CriarPublicacao"
                 element={<PaginaCriarPublicacao />}
+              ></Route>
+              <Route
+                path="/EditarPublicacao"
+                element={<PaginaEditarPublicacao />}
               ></Route>
             </Routes>
           </div>

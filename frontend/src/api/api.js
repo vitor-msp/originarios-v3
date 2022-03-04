@@ -153,19 +153,11 @@ export const deletePublicacao = async (publicacao) => {
   return res;
 };
 
-
 ////////////// endpoints públicos //////////////////
+
 // export const postContato = async (contato) => {
 //   const res = await api
 //     .post(`/contato`, contato)
-//     .then((res) => res)
-//     .catch((error) => error.response);
-//   return res;
-// };
-
-// export const getPublicacoes = async () => {
-//   const res = await api
-//     .get(`/publicacoes`)
 //     .then((res) => res)
 //     .catch((error) => error.response);
 //   return res;
@@ -188,18 +180,6 @@ export const deletePublicacao = async (publicacao) => {
 // };
 
 // ////////////////// endpoints autenticados //////////////////
-
-// // post, put, delete meuProduto
-
-// export const getMinhasPublicacoes = async () => {
-//   const res = await api
-//     .get(`/minhasPublicacoes`)
-//     .then((res) => res)
-//     .catch((error) => error.response);
-//   return res;
-// };
-
-// // post, put, delete minhaPublicacao
 
 // export const putMeusDados = async (dadosUsuario) => {
 //   const res = await api
