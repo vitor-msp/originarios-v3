@@ -5,7 +5,7 @@ export function PaginaRegistro() {
       <h1 className="display-6 mb-5">
         <strong>Registro</strong>
       </h1>
-      <FormRegistro />
+      {/* <FormRegistro /> */}
     </div>
   );
 }

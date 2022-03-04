@@ -5,7 +5,7 @@ export function PaginaContato() {
       <h1 className="display-6 mb-5">
         <strong>Contato</strong>
       </h1>
-      <FormContato />
+      {/* <FormContato /> */}
     </div>
   );
 }

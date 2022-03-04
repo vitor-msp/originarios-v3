@@ -2,10 +2,9 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 export function Navbar() {
-
   return (
     <nav className="row p-0 m-0 bg-transparent">
-      <div id="nav" className="col-9 navbar navbar-expand-lg navbar-dark">
+      <div id="nav" className="col-8 navbar navbar-expand-lg navbar-dark">
         <div className="container-fluid justify-content-start px-0">
           <button
             className="navbar-toggler my-2 my-lg-0 bg-transparent"
@@ -25,55 +24,39 @@ export function Navbar() {
 
           <div className="collapse navbar-collapse" id="navToggler">
             <ul className="navbar-nav me-auto mb-lg-0">
-              <li className="nav-item">
-                <NavLink
-                  to={"/"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "activeNav nav-link py-3 bg-transparent"
-                      : "nav-link py-3 bg-transparent"
-                  }
-                >
+              <li className="nav-item ">
+                <NavLink to={"/"} className={"text-light"}>
                   Home
                 </NavLink>
               </li>
 
               <li className="nav-item">
-                <NavLink
-                  to={"/Produtos"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "activeNav nav-link py-3 bg-transparent"
-                      : "nav-link py-3 bg-transparent"
-                  }
-                >
+                <NavLink to={"/Produtos"} className={"text-light"}>
                   Produtos
                 </NavLink>
               </li>
 
               <li className="nav-item">
-                <NavLink
-                  to={"/Publicacoes"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "activeNav nav-link py-3 bg-transparent"
-                      : "nav-link py-3 bg-transparent"
-                  }
-                >
+                <NavLink to={"/Publicacoes"} className={"text-light"}>
                   Publicacoes
                 </NavLink>
               </li>
 
               <li className="nav-item">
-                <NavLink
-                  to={"/Contato"}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "activeNav nav-link py-3 bg-transparent"
-                      : "nav-link py-3 bg-transparent"
-                  }
-                >
+                <NavLink to={"/Contato"} className={"text-light"}>
                   Contato
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink to={"/MeusProdutos"} className={"text-light"}>
+                  Meus Produtos
+                </NavLink>
+              </li>
+
+              <li className="nav-item">
+                <NavLink to={"/MinhasPublicacoes"} className={"text-light"}>
+                  Minhas Publicacoes
                 </NavLink>
               </li>
             </ul>
@@ -81,48 +64,20 @@ export function Navbar() {
         </div>
       </div>
 
-      <div className="col-3 d-flex justify-content-center align-items-center">
-        <NavLink
-          to={"/Registrar"}
-          className={({ isActive }) =>
-            isActive
-              ? "activeNav nav-link py-3 bg-transparent"
-              : "nav-link py-3 bg-transparent"
-          }
-        >
+      <div className="col-4 d-flex justify-content-center align-items-center">
+        <NavLink to={"/Registrar"} className={"text-light"}>
           Registrar
         </NavLink>
 
-        <NavLink
-          to={"/Login"}
-          className={({ isActive }) =>
-            isActive
-              ? "activeNav nav-link py-3 bg-transparent"
-              : "nav-link py-3 bg-transparent"
-          }
-        >
+        <NavLink to={"/Login"} className={"text-light"}>
           Login
         </NavLink>
 
-        <NavLink
-          to={"/MeusDados"}
-          className={({ isActive }) =>
-            isActive
-              ? "activeNav nav-link py-3 bg-transparent"
-              : "nav-link py-3 bg-transparent"
-          }
-        >
+        <NavLink to={"/MeusDados"} className={"text-light"}>
           Meus Dados
         </NavLink>
 
-        <NavLink
-          to={"/"}
-          className={({ isActive }) =>
-            isActive
-              ? "activeNav nav-link py-3 bg-transparent"
-              : "nav-link py-3 bg-transparent"
-          }
-        >
+        <NavLink to={"/"} className={"text-light"}>
           Sair
         </NavLink>
       </div>
