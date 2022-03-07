@@ -10,6 +10,8 @@ import { publicacaoSelecionadaReducer } from "./reducers/publicacoes/publicacaoS
 import { minhasPublicacoesReducer } from "./reducers/publicacoes/minhasPublicacoes.reducer";
 import { minhaPublicacaoSelecionadaReducer } from "./reducers/publicacoes/minhaPublicacaoSelecionada.reducer";
 
+import { meusDadosReducer } from "./reducers/meusDados/meusDados.reducer";
+
 const reducers = combineReducers({
   produtos: produtosReducer,
   produtoSelecionado: produtoSelecionadoReducer,
@@ -20,6 +22,8 @@ const reducers = combineReducers({
   publicacaoSelecionada: publicacaoSelecionadaReducer,
   minhasPublicacoes: minhasPublicacoesReducer,
   minhaPublicacaoSelecionada: minhaPublicacaoSelecionadaReducer,
+
+  meusDados: meusDadosReducer,
 });
 
 export const store = createStore(reducers);
