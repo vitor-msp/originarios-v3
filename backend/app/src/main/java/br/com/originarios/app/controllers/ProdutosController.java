@@ -1,5 +1,6 @@
 package br.com.originarios.app.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.originarios.app.models.entities.Produto;
 import br.com.originarios.app.models.repositories.ProdutoRepository;
 import br.com.originarios.app.payload.response.MsgResponse;
+import br.com.originarios.app.payload.response.ProdutoResponse;
+import br.com.originarios.app.payload.response.UsuarioResponse;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -36,7 +39,26 @@ public class ProdutosController{
 			
 			List<Produto> produtos = produtoRepository.findAll(page).getContent();
 			
-			return ResponseEntity.ok(produtos);
+			List<ProdutoResponse> produtosResponse = new ArrayList<>();
+			for (Produto produto: produtos) {
+				
+				ProdutoResponse produtoResponse = new ProdutoResponse();
+				produtoResponse.setProduto(produto);
+				
+				UsuarioResponse usuarioResponse = new UsuarioResponse();
+				usuarioResponse.setNome(produto.getUsuario().getNome());
+				usuarioResponse.setTribo(produto.getUsuario().getTribo());
+				usuarioResponse.setCidade(produto.getUsuario().getCidade());
+				usuarioResponse.setUf(produto.getUsuario().getUf());
+				usuarioResponse.setDdd(produto.getUsuario().getDdd());
+				usuarioResponse.setTelefone(produto.getUsuario().getTelefone());
+				usuarioResponse.setEmail(produto.getUsuario().getEmail());
+				produtoResponse.setUsuarioResponse(usuarioResponse);
+				
+				produtosResponse.add(produtoResponse);
+			}
+			
+			return ResponseEntity.ok(produtosResponse);
 
 		} catch (Exception e) {
 
