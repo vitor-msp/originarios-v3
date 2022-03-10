@@ -3,7 +3,7 @@ package br.com.originarios.app.payload.request;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class ChangePasswordRequest {
+public class MudarSenhaRequest {
 
 	@NotBlank
 	@Size(max = 100)
