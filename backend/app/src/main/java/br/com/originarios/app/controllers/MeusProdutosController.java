@@ -70,7 +70,7 @@ public class MeusProdutosController{
 	@PutMapping
 	public ResponseEntity<?> putProduto(
 			@RequestHeader("Authorization") String token,
-			@RequestBody Produto produto){
+			@RequestBody Produto novoProduto){
 		
 		try {
 			
@@ -82,12 +82,23 @@ public class MeusProdutosController{
 				return ResponseEntity.badRequest()
 						.body(new MsgResponse("Erro: Cliente não encontrado!"));
 			}
+			
+			Optional<Produto> produto = produtoRepository.findById(novoProduto.getId());
+			if(produto.isEmpty()) {
+				return ResponseEntity.badRequest()
+						.body(new MsgResponse("Erro: Produto não encontrado!"));
+			}
+			
+			if(!produto.get().usuarioEValido(usuario.get())) {
+				return ResponseEntity.badRequest()
+					.body(new MsgResponse("Erro: Cliente não autorizado a atualizar este produto!"));
+			}
 
-			produto.setUsuario(usuario.get());
+			novoProduto.setUsuario(usuario.get());
 			
-			produtoRepository.save(produto);
+			produtoRepository.save(novoProduto);
 			
-			return ResponseEntity.ok(produto);
+			return ResponseEntity.ok(novoProduto);
 		
 		} catch (Exception e) {
 			

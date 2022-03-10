@@ -69,34 +69,45 @@ public class MinhasPublicacoesController{
 		}
 	}
 
-//	@PutMapping
-//	public ResponseEntity<?> putProduto(
-//			@RequestHeader("Authorization") String token,
-//			@RequestBody Produto produto){
-//		
-//		try {
-//			
-//			token = token.substring(7, token.length());
-//			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
-//			
-//			Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioEmail);
-//			if(usuario.isEmpty()) {
-//				return ResponseEntity.badRequest()
-//						.body(new MsgResponse("Erro: Cliente não encontrado!"));
-//			}
-//
-//			produto.setUsuario(usuario.get());
-//			
-//			produtoRepository.save(produto);
-//			
-//			return ResponseEntity.ok(produto);
-//		
-//		} catch (Exception e) {
-//			
-//			return ResponseEntity.internalServerError().body(
-//					new MsgResponse("Erro ao atualizar o produto!"));
-//		}
-//	}
+	@PutMapping
+	public ResponseEntity<?> putPublicacao(
+			@RequestHeader("Authorization") String token,
+			@RequestBody Publicacao novaPublicacao){
+		
+		try {
+			
+			token = token.substring(7, token.length());
+			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
+			
+			Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioEmail);
+			if(usuario.isEmpty()) {
+				return ResponseEntity.badRequest()
+						.body(new MsgResponse("Erro: Cliente não encontrado!"));
+			}
+			
+			Optional<Publicacao> publicacao = publicacaoRepository.findById(novaPublicacao.getId());
+			if(publicacao.isEmpty()) {
+				return ResponseEntity.badRequest()
+						.body(new MsgResponse("Erro: Publicação não encontrada!"));
+			}
+			
+			if(!publicacao.get().usuarioEValido(usuario.get())) {
+				return ResponseEntity.badRequest()
+					.body(new MsgResponse("Erro: Cliente não autorizado a atualizar esta publicação!"));
+			}
+
+			novaPublicacao.setUsuario(usuario.get());
+			
+			publicacaoRepository.save(novaPublicacao);
+			
+			return ResponseEntity.ok(novaPublicacao);
+		
+		} catch (Exception e) {
+			
+			return ResponseEntity.internalServerError().body(
+					new MsgResponse("Erro ao atualizar a publicação!"));
+		}
+	}
 //	
 //	@DeleteMapping
 //	public ResponseEntity<?> deleteProduto(

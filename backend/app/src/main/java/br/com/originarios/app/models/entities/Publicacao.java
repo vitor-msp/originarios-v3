@@ -13,6 +13,8 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Publicacao {
 
@@ -22,6 +24,7 @@ public class Publicacao {
 	
 	@NotNull
 	@ManyToOne
+	@JsonIgnore
 	private Usuario usuario;
 	
 	@NotBlank
@@ -31,6 +34,7 @@ public class Publicacao {
 	@Size(max = 5000)
 	private String corpo;
 	
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date data;
 	
@@ -72,5 +76,14 @@ public class Publicacao {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+	
+	public boolean usuarioEValido(Usuario usuario) {
+		
+		if(this.getUsuario() != null && this.getUsuario().getId() == usuario.getId()) {
+			return true;
+		}
+		
+		return false;
 	}
 }
