@@ -31,7 +31,6 @@ public class Publicacao {
 	@Size(max = 5000)
 	private String corpo;
 	
-	@NotBlank
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date data;
 	

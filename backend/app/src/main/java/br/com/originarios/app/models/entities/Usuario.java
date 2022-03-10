@@ -34,7 +34,6 @@ public class Usuario {
 	@Size(min = 11, max = 11)
 	private String cpf;
 	
-	@NotBlank
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 	
@@ -92,8 +91,8 @@ public class Usuario {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-		if(this.assinatura == null) {
-			setAssinatura(nome.substring(0, 30));
+		if(this.assinatura == null || this.assinatura.isBlank()) {
+			setAssinatura((nome.length() > 30) ? nome.substring(0, 30) : this.nome);
 		}
 	}
 
@@ -118,7 +117,11 @@ public class Usuario {
 	}
 
 	public void setAssinatura(String assinatura) {
-		this.assinatura = assinatura;
+		if(assinatura.isBlank() && this.nome != null) {	
+			this.assinatura = this.nome;
+		}else {			
+			this.assinatura = assinatura;
+		}
 	}
 
 	public String getCidade() {

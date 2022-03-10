@@ -18,11 +18,9 @@ public class UsuarioRequest {
 	@Size(min = 11, max = 11)
 	private String cpf;
 	
-	@NotBlank
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataNascimento;
 	
-	@NotBlank
 	@Size(max = 30)
 	private String assinatura;
 	
