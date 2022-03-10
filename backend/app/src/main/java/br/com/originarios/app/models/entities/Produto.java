@@ -10,6 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Produto {
 	
@@ -19,6 +21,7 @@ public class Produto {
 	
 	@NotNull
 	@ManyToOne
+	@JsonIgnore
 	private Usuario usuario;
 	
 	@NotBlank
@@ -32,7 +35,6 @@ public class Produto {
 	@Size(max = 5000)
 	private String corpo;
 	
-	@NotBlank
 	@Min(0)
 	private Double valor;
 	
@@ -82,5 +84,14 @@ public class Produto {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+	
+	public boolean usuarioEValido(Usuario usuario) {
+		
+		if(this.getUsuario() != null && this.getUsuario().getId() == usuario.getId()) {
+			return true;
+		}
+		
+		return false;
 	}
 }
