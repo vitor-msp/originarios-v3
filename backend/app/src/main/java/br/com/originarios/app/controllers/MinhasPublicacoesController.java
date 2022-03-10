@@ -17,10 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.originarios.app.models.entities.Produto;
 import br.com.originarios.app.models.entities.Publicacao;
 import br.com.originarios.app.models.entities.Usuario;
-import br.com.originarios.app.models.repositories.ProdutoRepository;
 import br.com.originarios.app.models.repositories.PublicacaoRepository;
 import br.com.originarios.app.models.repositories.UsuarioRepository;
 import br.com.originarios.app.payload.response.MsgResponse;
@@ -108,84 +106,84 @@ public class MinhasPublicacoesController{
 					new MsgResponse("Erro ao atualizar a publicação!"));
 		}
 	}
-//	
-//	@DeleteMapping
-//	public ResponseEntity<?> deleteProduto(
-//			@RequestHeader("Authorization") String token,
-//			@RequestParam(name = "produtoId") Integer produtoId){
-//		
-//		try {
-//		
-//			token = token.substring(7, token.length());
-//			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
-//			
-//			Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioEmail);
-//			if(usuario.isEmpty()) {
-//				return ResponseEntity.badRequest()
-//						.body(new MsgResponse("Erro: Cliente não encontrado!"));
-//			}
-//			
-//			Optional<Produto> produto = produtoRepository.findById(produtoId);
-//			if(produto.isEmpty()) {
-//				return ResponseEntity.badRequest()
-//						.body(new MsgResponse("Erro: Produto não encontrado!"));
-//			}
-//			
-//			if(!produto.get().usuarioEValido(usuario.get())) {
-//				return ResponseEntity.badRequest()
-//						.body(new MsgResponse("Erro: Cliente não autorizado a deletar este produto!"));
-//			}
-//			
-//			produtoRepository.deleteById(produto.get().getId());
-//			
-//			return ResponseEntity.ok(new MsgResponse("Produto deletado com sucesso!"));
-//				
-//		} catch (Exception e) {
-//			
-//			return ResponseEntity.internalServerError().body(
-//					new MsgResponse("Erro ao deletar o produto!"));
-//		}
-//	}
-//	
-//	@GetMapping
-//	public ResponseEntity<?> getMeusProdutos(
-//			@RequestHeader("Authorization") String token,
-//			@RequestParam(name = "inicio", defaultValue = "0") int inicio,
-//			@RequestParam(name = "qtd", defaultValue = "5") int qtd){
-//		
-//		try {
-//
-//			token = token.substring(7, token.length());
-//			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
-//			
-//			Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioEmail);
-//			if(usuario.isEmpty()) {
-//				return ResponseEntity.badRequest()
-//						.body(new MsgResponse("Erro: Cliente não encontrado!"));
-//			}
-//			
-//			List<Produto> produtos = usuario.get().getProdutos();
-//
-//			List<Produto> produtosInvertido = new ArrayList<>();
-//			int total = produtos.size();
-//			for (int i = total - 1; i >= 0; i--) {
-//				produtosInvertido.add(produtos.get(i));
-//			}
-//			
-//			int resto = total - inicio;
-//			qtd = (resto < qtd) ? resto : qtd;
-//			
-//			List<Produto> produtosResponse = new ArrayList<>();
-//			for (int i = inicio; i < (inicio + qtd); i++) {
-//				produtosResponse.add(produtosInvertido.get(i));
-//			}
-//			
-//			return ResponseEntity.ok(produtosResponse);
-//			
-//		} catch (Exception e) {
-//			
-//			return ResponseEntity.internalServerError().body(
-//					new MsgResponse("Erro na obtenção dos produtos!"));
-//		}
-//	}
+	
+	@DeleteMapping
+	public ResponseEntity<?> deletePublicacao(
+			@RequestHeader("Authorization") String token,
+			@RequestParam(name = "publicacaoId") Integer publicacaoId){
+		
+		try {
+		
+			token = token.substring(7, token.length());
+			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
+			
+			Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioEmail);
+			if(usuario.isEmpty()) {
+				return ResponseEntity.badRequest()
+						.body(new MsgResponse("Erro: Cliente não encontrado!"));
+			}
+			
+			Optional<Publicacao> publicacao = publicacaoRepository.findById(publicacaoId);
+			if(publicacao.isEmpty()) {
+				return ResponseEntity.badRequest()
+						.body(new MsgResponse("Erro: Publicação não encontrada!"));
+			}
+			
+			if(!publicacao.get().usuarioEValido(usuario.get())) {
+				return ResponseEntity.badRequest()
+					.body(new MsgResponse("Erro: Cliente não autorizado a deletar esta publicação!"));
+			}
+			
+			publicacaoRepository.deleteById(publicacao.get().getId());
+			
+			return ResponseEntity.ok(new MsgResponse("Publicação deletada com sucesso!"));
+				
+		} catch (Exception e) {
+			
+			return ResponseEntity.internalServerError().body(
+					new MsgResponse("Erro ao deletar a publicação!"));
+		}
+	}
+	
+	@GetMapping
+	public ResponseEntity<?> getMinhasPublicacoes(
+			@RequestHeader("Authorization") String token,
+			@RequestParam(name = "inicio", defaultValue = "0") int inicio,
+			@RequestParam(name = "qtd", defaultValue = "5") int qtd){
+		
+		try {
+
+			token = token.substring(7, token.length());
+			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
+			
+			Optional<Usuario> usuario = usuarioRepository.findByEmail(usuarioEmail);
+			if(usuario.isEmpty()) {
+				return ResponseEntity.badRequest()
+						.body(new MsgResponse("Erro: Cliente não encontrado!"));
+			}
+			
+			List<Publicacao> publicacoes = usuario.get().getPublicacoes();
+
+			List<Publicacao> publicacoesInvertido = new ArrayList<>();
+			int total = publicacoes.size();
+			for (int i = total - 1; i >= 0; i--) {
+				publicacoesInvertido.add(publicacoes.get(i));
+			}
+			
+			int resto = total - inicio;
+			qtd = (resto < qtd) ? resto : qtd;
+			
+			List<Publicacao> publicacoesResponse = new ArrayList<>();
+			for (int i = inicio; i < (inicio + qtd); i++) {
+				publicacoesResponse.add(publicacoesInvertido.get(i));
+			}
+			
+			return ResponseEntity.ok(publicacoesResponse);
+			
+		} catch (Exception e) {
+			
+			return ResponseEntity.internalServerError().body(
+					new MsgResponse("Erro na obtenção das publicações!"));
+		}
+	}
 }
