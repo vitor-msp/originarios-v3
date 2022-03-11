@@ -12,9 +12,9 @@ export function FormLogin() {
   const enviarLogin = async (autenticacao) => {
     if (validarLogin(autenticacao)) {
       try {
-        let res = await login(autenticacao);
+        const res = await login(autenticacao);
         if (res.status === 200) {
-          console.log(res);
+          localStorage.setItem("OrigTkn", JSON.stringify(res.data));
           // dispatch(actionFeedback("enviado com sucesso", false));
         } else {
           // dispatch(actionFeedback(res.data.message, false));

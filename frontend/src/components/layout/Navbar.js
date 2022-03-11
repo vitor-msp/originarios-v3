@@ -2,6 +2,10 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 export function Navbar() {
+  const logout = () => {
+    localStorage.removeItem("OrigTkn");
+  };
+
   return (
     <nav className="row p-0 m-0 bg-transparent">
       <div id="nav" className="col-8 navbar navbar-expand-lg navbar-dark">
@@ -77,7 +81,7 @@ export function Navbar() {
           Meus Dados
         </NavLink>
 
-        <NavLink to={"/"} className={"text-light"}>
+        <NavLink to={"/"} onClick={logout} className={"text-light"}>
           Sair
         </NavLink>
       </div>

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
@@ -21,8 +22,26 @@ import { PaginaVerPublicacao } from "../pages/publicacoes/PaginaVerPublicacao";
 import { PaginaVerMinhaPublicacao } from "../pages/publicacoes/PaginaVerMinhaPublicacao";
 import { PaginaEditarPublicacao } from "../pages/publicacoes/PaginaEditarPublicacao";
 import { PaginaCriarPublicacao } from "../pages/publicacoes/PaginaCriarPublicacao";
+import { getMeusDados } from "../api/api";
 
 function App() {
+  useEffect(() => {
+    const reqMeusDados = async () => {
+      try {
+        const res = await getMeusDados();
+        if (res.status === 200) {
+          console.log(res);
+          // dispatch(actionFeedback("enviado com sucesso", false));
+        } else {
+          // dispatch(actionFeedback(res.data.message, false));
+        }
+      } catch (error) {
+        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+      }
+    };
+    reqMeusDados();
+  }, []);
+
   return (
     <BrowserRouter>
       <div className="row p-0 m-0">

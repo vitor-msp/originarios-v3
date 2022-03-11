@@ -21,7 +21,7 @@ export function FormRegistro() {
   const enviarRegistro = async (registro) => {
     if (validarRegistro(registro)) {
       try {
-        let res = await postRegistro(registro);
+        const res = await postRegistro(registro);
         if (res.status === 200) {
           console.log(res);
           document.getElementById("regReset").click();

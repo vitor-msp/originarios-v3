@@ -9,6 +9,74 @@ const api = axios.create({
   },
 });
 
+const configToken = () => {
+  const OrigTkn = JSON.parse(localStorage.getItem("OrigTkn"));
+  const header = {
+    Authorization: `${OrigTkn.tokenType} ${OrigTkn.token}`,
+  };
+  return header;
+};
+
+////////////// endpoints usuário //////////////////
+export const postContato = async (contato) => {
+  const res = await api
+    .post(`/contato`, contato)
+    .then((res) => res)
+    .catch((error) => error.response);
+  return res;
+};
+
+export const postRegistro = async (registro) => {
+  const res = await api
+    .post(`/auth/registro`, registro)
+    .then((res) => res)
+    .catch((error) => error.response);
+  return res;
+};
+
+export const login = async (autenticacao) => {
+  const res = await api
+    .post(`/auth/login`, autenticacao)
+    .then((res) => res)
+    .catch((error) => error.response);
+  return res;
+};
+
+export const getMeusDados = async () => {
+  const res = await api
+    .get(`/usuario`, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
+  return res;
+};
+
+export const putMeusDados = async (dadosUsuario) => {
+  // const res = await api
+  //   .put(`/meusDados`, dadosUsuario)
+  //   .then((res) => res)
+  //   .catch((error) => error.response);
+  // return res;
+  const res = {
+    status: 200,
+    data: dadosUsuario,
+  };
+  return res;
+};
+
+export const putMinhaSenha = async (senhaUsuario) => {
+  // const res = await api
+  //   .put(`/minhaSenha`, senhaUsuario)
+  //   .then((res) => res)
+  //   .catch((error) => error.response);
+  // return res;
+  const res = {
+    status: 200,
+  };
+  return res;
+};
+
 ////////////////// produtos //////////////////
 export const getProdutos = async () => {
   // const res = await api
@@ -149,82 +217,6 @@ export const deletePublicacao = async (publicacao) => {
   const res = {
     status: 200,
     data: publicacao.id,
-  };
-  return res;
-};
-
-////////////// endpoints usuário //////////////////
-
-export const postContato = async (contato) => {
-  const res = await api
-    .post(`/contato`, contato)
-    .then((res) => res)
-    .catch((error) => error.response);
-  return res;
-};
-
-export const postRegistro = async (registro) => {
-  const res = await api
-    .post(`/auth/registro`, registro)
-    .then((res) => res)
-    .catch((error) => error.response);
-  return res;
-};
-
-export const login = async (autenticacao) => {
-  console.log(autenticacao);
-  const res = await api
-    .post(`/auth/login`, autenticacao)
-    .then((res) => res)
-    .catch((error) => error.response);
-  return res;
-};
-
-export const getMeusDados = async () => {
-  // const res = await api
-  //   .get(`/meusDados` )
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: {
-      nome: "Fulano de Tal",
-      cpf: "00123456789",
-      dtNasc: "2000-02-01",
-      email: "fulano@teste.com",
-      cidade: "Porto Seguro",
-      estado: "BA",
-      ddd: 73,
-      whatsapp: 123456789,
-      tribo: "kiriri",
-      assinatura: "Fulano",
-    },
-  };
-  return res;
-};
-
-export const putMeusDados = async (dadosUsuario) => {
-  // const res = await api
-  //   .put(`/meusDados`, dadosUsuario)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: dadosUsuario,
-  };
-  return res;
-};
-
-export const putMinhaSenha = async (senhaUsuario) => {
-  // const res = await api
-  //   .put(`/minhaSenha`, senhaUsuario)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
   };
   return res;
 };

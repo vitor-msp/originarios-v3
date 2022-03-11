@@ -15,7 +15,7 @@ export function FormContato() {
   const enviarContato = async (contato) => {
     if (validarContato(contato)) {
       try {
-        let res = await postContato(contato);
+        const res = await postContato(contato);
         if (res.status === 200) {
           console.log(res);
           document.getElementById("cttReset").click();
