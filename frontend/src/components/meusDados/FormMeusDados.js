@@ -1,16 +1,27 @@
-import { useEffect, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { putMeusDados, putMinhaSenha } from "../../api/api";
+import { putMeusDados } from "../../api/api";
 import { actionPutMeusDados } from "../../store/actions/meusDados/meusDados.action";
+import { FormMinhaSenha } from "./FormMinhaSenha";
 
 export function FormMeusDados() {
   const meusDados = useSelector((state) => state.meusDados);
-  const [dadosAtuais, setDadosAtuais] = useState(meusDados);
   const dispatch = useDispatch();
 
   const criarMeusDados = () => {
-    return Object.assign({}, dadosAtuais);
+    return {
+      nome: document.getElementById("mdNome").value,
+      cpf: document.getElementById("mdCpf").value,
+      dataNascimento: document.getElementById("mdDtNasc").value,
+      assinatura: document.getElementById("mdAss").value,
+      cidade: document.getElementById("mdCid").value,
+      uf: document.getElementById("mdUf").value,
+      tribo: document.getElementById("mdTribo").value,
+      ddd: document.getElementById("mdDdd").value,
+      telefone: document.getElementById("mdTel").value,
+      email: document.getElementById("mdEmail").value,
+      senha: document.getElementById("mdSenha").value,
+    };
   };
 
   const enviarMeusDados = async (usuario) => {
@@ -32,30 +43,7 @@ export function FormMeusDados() {
     }
   };
 
-  const enviarMinhaSenha = async (senhas) => {
-    if (validarMinhaSenha(senhas)) {
-      try {
-        let res = await putMinhaSenha(senhas);
-        if (res.status === 200) {
-          // dispatch(actionFeedback("enviado com sucesso", false));
-        } else {
-          // dispatch(actionFeedback(res.data.message, false));
-        }
-      } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
-      }
-    } else {
-      // feedback p usuario => dados inválidos
-    }
-  };
-
   const validarMeusDados = (usuario) => {
-    return true;
-    // valida campos
-    // se campos validos => return true
-  };
-
-  const validarMinhaSenha = (senhas) => {
     return true;
     // valida campos
     // se campos validos => return true
@@ -80,13 +68,11 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={50}
               size={50}
-              value={dadosAtuais === null ? "" : dadosAtuais.nome}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  nome: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.nome === null
+                  ? ""
+                  : meusDados.nome
+              }
             />
           </Form.Group>
 
@@ -99,13 +85,11 @@ export function FormMeusDados() {
               minLength={11}
               maxLength={11}
               size={11}
-              value={dadosAtuais === null ? "" : dadosAtuais.cpf}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  cpf: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.cpf === null
+                  ? ""
+                  : meusDados.cpf
+              }
             />
           </Form.Group>
 
@@ -114,13 +98,11 @@ export function FormMeusDados() {
             <Form.Control
               id={"mdDtNasc"}
               type={"date"}
-              value={dadosAtuais === null ? "" : dadosAtuais.dataNascimento}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  dataNascimento: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.dataNascimento === null
+                  ? ""
+                  : meusDados.dataNascimento
+              }
             />
           </Form.Group>
 
@@ -132,13 +114,11 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={30}
               size={30}
-              value={dadosAtuais === null ? "" : dadosAtuais.assinatura}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  assinatura: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.assinatura === null
+                  ? ""
+                  : meusDados.assinatura
+              }
             />
           </Form.Group>
 
@@ -150,13 +130,11 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={30}
               size={30}
-              value={dadosAtuais === null ? "" : dadosAtuais.cidade}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  cidade: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.cidade === null
+                  ? ""
+                  : meusDados.cidade
+              }
             />
           </Form.Group>
 
@@ -168,13 +146,9 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={2}
               size={2}
-              value={dadosAtuais === null ? "" : dadosAtuais.uf}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  uf: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.uf === null ? "" : meusDados.uf
+              }
             />
           </Form.Group>
 
@@ -186,13 +160,11 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={30}
               size={30}
-              value={dadosAtuais === null ? "" : dadosAtuais.tribo}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  tribo: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.tribo === null
+                  ? ""
+                  : meusDados.tribo
+              }
             />
           </Form.Group>
 
@@ -204,13 +176,11 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={2}
               size={2}
-              value={dadosAtuais === null ? "" : dadosAtuais.ddd}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  ddd: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.ddd === null
+                  ? ""
+                  : meusDados.ddd
+              }
             />
           </Form.Group>
 
@@ -222,13 +192,11 @@ export function FormMeusDados() {
               type={"text"}
               maxLength={10}
               size={10}
-              value={dadosAtuais === null ? "" : dadosAtuais.telefone}
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  telefone: event.target.value,
-                });
-              }}
+              defaultValue={
+                meusDados === null || meusDados.telefone === null
+                  ? ""
+                  : meusDados.telefone
+              }
             />
           </Form.Group>
 
@@ -240,7 +208,12 @@ export function FormMeusDados() {
               type={"email"}
               maxLength={30}
               size={30}
-              value={dadosAtuais === null ? "" : dadosAtuais.email}
+              value={
+                meusDados === null || meusDados.email === null
+                  ? ""
+                  : meusDados.email
+              }
+              readOnly
               disabled
             />
           </Form.Group>
@@ -253,17 +226,6 @@ export function FormMeusDados() {
               type={"password"}
               maxLength={100}
               size={100}
-              value={
-                dadosAtuais === null || dadosAtuais.senha === null
-                  ? ""
-                  : dadosAtuais.senha
-              }
-              onChange={(event) => {
-                setDadosAtuais({
-                  ...dadosAtuais,
-                  senha: event.target.value,
-                });
-              }}
             />
           </Form.Group>
 
@@ -271,17 +233,10 @@ export function FormMeusDados() {
             <Form.Label>Confirmação da Senha:</Form.Label>
             <Form.Control
               id={"mdConfSenha"}
-              // required
+              required
               type={"password"}
               maxLength={100}
               size={100}
-              value={""}
-              // onChange={(event) => {
-              //   setDadosAtuais({
-              //     ...dadosAtuais,
-              //     nome: event.target.value,
-              //   });
-              // }}
             />
           </Form.Group>
         </Row>
@@ -298,6 +253,7 @@ export function FormMeusDados() {
       {/* quando o usuário clicar em "editar", os campos ficarem habilitados para edição */}
       {/* clique em salvar => salvarMeusDados(dados do formulário) */}
       {/* clique em salvar => salvarMinhaSenha(dados do formulário) */}
+      <FormMinhaSenha />
     </div>
   );
 }

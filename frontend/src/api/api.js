@@ -62,15 +62,13 @@ export const putMeusDados = async (usuario) => {
   return res;
 };
 
-export const putMinhaSenha = async (senhaUsuario) => {
-  // const res = await api
-  //   .put(`/minhaSenha`, senhaUsuario)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-  };
+export const putMinhaSenha = async (senhas) => {
+  const res = await api
+    .put(`/usuario/senha`, senhas, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
