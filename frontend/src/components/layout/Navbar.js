@@ -1,9 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { actionLogout } from "../../store/actions/meusDados/estaLogado.action";
 
 export function Navbar() {
+  const dispatch = useDispatch();
   const logout = () => {
-    localStorage.removeItem("OrigTkn");
+    dispatch(actionLogout())
   };
 
   return (

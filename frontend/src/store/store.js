@@ -11,6 +11,7 @@ import { minhasPublicacoesReducer } from "./reducers/publicacoes/minhasPublicaco
 import { minhaPublicacaoSelecionadaReducer } from "./reducers/publicacoes/minhaPublicacaoSelecionada.reducer";
 
 import { meusDadosReducer } from "./reducers/meusDados/meusDados.reducer";
+import { estaLogadoReducer } from "./reducers/meusDados/estaLogado.reducer";
 
 const reducers = combineReducers({
   produtos: produtosReducer,
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   minhaPublicacaoSelecionada: minhaPublicacaoSelecionadaReducer,
 
   meusDados: meusDadosReducer,
+  estaLogado: estaLogadoReducer,
 });
 
 export const store = createStore(reducers);

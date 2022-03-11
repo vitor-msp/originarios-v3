@@ -1,7 +1,10 @@
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { login } from "../../api/api";
+import { actionLogin } from "../../store/actions/meusDados/estaLogado.action";
 
 export function FormLogin() {
+  const dispatch = useDispatch();
   const criarLogin = () => {
     return {
       email: document.getElementById("logEmail").value,
@@ -14,7 +17,7 @@ export function FormLogin() {
       try {
         const res = await login(autenticacao);
         if (res.status === 200) {
-          localStorage.setItem("OrigTkn", JSON.stringify(res.data));
+          dispatch(actionLogin(res.data));
           // dispatch(actionFeedback("enviado com sucesso", false));
         } else {
           // dispatch(actionFeedback(res.data.message, false));

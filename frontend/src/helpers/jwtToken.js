@@ -1,8 +1,7 @@
-export const estaLogado = () => {
+export const existeToken = () => {
   try {
-    const OrigTkn = JSON.parse(localStorage.getItem("OrigTkn"));
-    console.log(OrigTkn.email);
-    return true;
+    const dadosToken = JSON.parse(localStorage.getItem("OrigTkn"));
+    return dadosToken === null || dadosToken === undefined ? false : true;
   } catch (error) {
     return false;
   }

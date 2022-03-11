@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "../components/layout/Navbar";
 import { Footer } from "../components/layout/Footer";
@@ -23,23 +24,44 @@ import { PaginaVerMinhaPublicacao } from "../pages/publicacoes/PaginaVerMinhaPub
 import { PaginaEditarPublicacao } from "../pages/publicacoes/PaginaEditarPublicacao";
 import { PaginaCriarPublicacao } from "../pages/publicacoes/PaginaCriarPublicacao";
 import { getMeusDados } from "../api/api";
+import { existeToken } from "../helpers/jwtToken";
+import {
+  actionGetMeusDados,
+  actionLimparMeusDados,
+} from "../store/actions/meusDados/meusDados.action";
+import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
 
 function App() {
-  useEffect(() => {
-    const reqMeusDados = async () => {
-      try {
-        const res = await getMeusDados();
-        if (res.status === 200) {
-          console.log(res);
-          // dispatch(actionFeedback("enviado com sucesso", false));
-        } else {
-          // dispatch(actionFeedback(res.data.message, false));
-        }
-      } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+  const estaLogado = useSelector((state) => state.estaLogado);
+  const meusDados = useSelector((state) => state.meusDados);
+  const dispatch = useDispatch();
+
+  const reqMeusDados = async () => {
+    try {
+      const res = await getMeusDados();
+      if (res.status === 200) {
+        dispatch(actionGetMeusDados(res.data));
+        // dispatch(actionFeedback("enviado com sucesso", false));
+      } else {
+        // dispatch(actionFeedback(res.data.message, false));
       }
-    };
-    reqMeusDados();
+    } catch (error) {
+      // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+    }
+  };
+
+  useEffect(() => {
+    if (estaLogado && meusDados === null) {
+      reqMeusDados();
+    } else if (!estaLogado && meusDados !== null) {
+      dispatch(actionLimparMeusDados());
+    }
+  }, [estaLogado]);
+
+  useEffect(() => {
+    if (existeToken()) {
+      dispatch(actionLogin());
+    }
   }, []);
 
   return (

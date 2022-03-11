@@ -5,6 +5,13 @@ export const actionGetMeusDados = (usuario) => {
   };
 };
 
+export const actionLimparMeusDados = () => {
+  return {
+    type: "actionLimparMeusDados",
+    payload: null,
+  };
+};
+
 export const actionPutMeusDados = (usuario) => {
   return {
     type: "actionPutMeusDados",
