@@ -52,16 +52,13 @@ export const getMeusDados = async () => {
   return res;
 };
 
-export const putMeusDados = async (dadosUsuario) => {
-  // const res = await api
-  //   .put(`/meusDados`, dadosUsuario)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: dadosUsuario,
-  };
+export const putMeusDados = async (usuario) => {
+  const res = await api
+    .put(`/usuario`, usuario, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
