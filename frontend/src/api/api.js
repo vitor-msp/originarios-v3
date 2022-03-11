@@ -172,6 +172,7 @@ export const postRegistro = async (registro) => {
 };
 
 export const login = async (autenticacao) => {
+  console.log(autenticacao);
   const res = await api
     .post(`/auth/login`, autenticacao)
     .then((res) => res)

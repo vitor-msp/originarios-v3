@@ -164,7 +164,7 @@ export function FormRegistro() {
             <Form.Control
               id={"regSenha"}
               required
-              type={"text"}
+              type={"password"}
               maxLength={100}
               size={100}
             />
@@ -175,7 +175,7 @@ export function FormRegistro() {
             <Form.Control
               id={"regConfSenha"}
               required
-              type={"text"}
+              type={"password"}
               maxLength={100}
               size={100}
             />
