@@ -163,27 +163,19 @@ export const postContato = async (contato) => {
   return res;
 };
 
-export const postRegistro = async (usuario) => {
-  // const res = await api
-  //   .post(`/registrar`, usuario)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-  };
+export const postRegistro = async (registro) => {
+  const res = await api
+    .post(`/auth/registro`, registro)
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
 export const login = async (autenticacao) => {
-  // const res = await api
-  //   .post(`/login`, autenticacao)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-  };
+  const res = await api
+    .post(`/auth/login`, autenticacao)
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 

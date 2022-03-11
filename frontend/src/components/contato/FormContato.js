@@ -40,13 +40,6 @@ export function FormContato() {
 
   return (
     <div>
-      FormContato
-      {/* exibir formulário com campos para contato */}
-      {/* nome nvarchar(50) not null,
-      email nvarchar(30) not null,
-      endereco nvarchar(70),
-      assunto nvarchar(30) not null,
-      corpo nvarchar(2000) not null, */}
       <Form
         onSubmit={(event) => {
           event.preventDefault();
