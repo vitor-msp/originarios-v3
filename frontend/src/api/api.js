@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const port = 8080;
+const url = `https://originarios.herokuapp.com`;
 
 const api = axios.create({
-  baseURL: `http://localhost:${port}/`,
+  baseURL: `${url}/api`,
   headers: {
     "Content-type": "application/json",
   },
@@ -156,14 +156,10 @@ export const deletePublicacao = async (publicacao) => {
 ////////////// endpoints usuário //////////////////
 
 export const postContato = async (contato) => {
-  // const res = await api
-  //   .post(`/contato`, contato)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-  };
+  const res = await api
+    .post(`/contato`, contato)
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
@@ -209,8 +205,8 @@ export const getMeusDados = async () => {
       ddd: 73,
       whatsapp: 123456789,
       tribo: "kiriri",
-      assinatura: "Fulano", 
-    }
+      assinatura: "Fulano",
+    },
   };
   return res;
 };
@@ -223,7 +219,7 @@ export const putMeusDados = async (dadosUsuario) => {
   // return res;
   const res = {
     status: 200,
-    data: dadosUsuario
+    data: dadosUsuario,
   };
   return res;
 };
@@ -235,7 +231,7 @@ export const putMinhaSenha = async (senhaUsuario) => {
   //   .catch((error) => error.response);
   // return res;
   const res = {
-    status: 200
+    status: 200,
   };
   return res;
 };
