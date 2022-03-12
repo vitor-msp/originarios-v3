@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { validarForm } from "../../helpers/validarForm";
-import { getMeusProdutos } from "../../api/api";
+// import { validarForm } from "../../helpers/validarForm";
+// import { getMeusProdutos } from "../../api/api";
 
 import { postProduto, putProduto } from "../../api/api";
 import {

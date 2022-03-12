@@ -17,7 +17,6 @@ export function ListaProdutos({ publico }) {
     const obterDados = async () => {
       try {
         const res = publico ? await getProdutos() : await getMeusProdutos();
-        console.log(res);
         if (res.status === 200) {
           dispatch(
             publico

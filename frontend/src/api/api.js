@@ -96,7 +96,6 @@ export const getMeusProdutos = async () => {
     })
     .then((res) => res)
     .catch((error) => error.response);
-  console.log(res);
   return res;
 };
 
@@ -135,72 +134,60 @@ export const deleteProduto = async (produto) => {
 
 ////////////////// publicacoes //////////////////
 export const getPublicacoes = async () => {
-  // const res = await api
-  //   .get(`/publicacoes`)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: [
-      { id: 1, nome: "publicacao 1" },
-      { id: 2, nome: "publicacao 2" },
-    ],
-  };
+  const res = await api
+    .get(`/publicacoes`)
+    .then((res) => {
+      res.data = res.data.map(({ publicacao, usuarioResponse }) => {
+        return {
+          ...publicacao,
+          usuario: { ...usuarioResponse },
+        };
+      });
+      return res;
+    })
+    .catch((error) => error.response);
   return res;
 };
 
 export const getMinhasPublicacoes = async () => {
-  // const res = await api
-  //   .get(`/minhasPublicacoes`)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: [
-      { id: 1, nome: "minha publicacao 1" },
-      { id: 2, nome: "minha publicacao 2" },
-    ],
-  };
+  const res = await api
+    .get(`/minhas-publicacoes`, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
 export const postPublicacao = async (publicacao) => {
-  // const res = await api
-  //   .post(`/minhasPublicacoes`, publicacao)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: publicacao,
-  };
+  const res = await api
+    .post(`/minhas-publicacoes`, publicacao, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
 export const putPublicacao = async (publicacao) => {
-  // const res = await api
-  //   .put(`/minhasPublicacoes`, publicacao)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: publicacao,
-  };
+  const res = await api
+    .put(`/minhas-publicacoes`, publicacao, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
 export const deletePublicacao = async (publicacao) => {
-  // const res = await api
-  //   .delete(`/minhasPublicacoes`, publicacao.id)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: publicacao.id,
-  };
+  const res = await api
+    .delete(`/minhas-publicacoes`, {
+      headers: configToken(),
+      params: {
+        publicacaoId: publicacao.id,
+      },
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };

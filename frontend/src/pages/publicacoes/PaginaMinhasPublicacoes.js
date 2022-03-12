@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { ListaPublicacoes } from "../../components/publicacoes/ListaPublicacoes";
 
 export function PaginaMinhasPublicacoes() {
@@ -7,9 +8,9 @@ export function PaginaMinhasPublicacoes() {
         <strong>Minhas Publicacoes</strong>
       </h1>
 
-      <a href="/CriarPublicacao" className="btn btn-primary w-auto">
+      <NavLink to={"/CriarPublicacao"} className={"btn btn-primary w-auto"}>
         Criar Publicacao
-      </a>
+      </NavLink>
 
       <ListaPublicacoes publico={false} />
     </div>

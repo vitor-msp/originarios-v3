@@ -16,7 +16,7 @@ export function ListaPublicacoes({ publico }) {
   useEffect(() => {
     const obterDados = async () => {
       try {
-        let res = publico ? await getPublicacoes() : await getMinhasPublicacoes();
+        const res = publico ? await getPublicacoes() : await getMinhasPublicacoes();
         if (res.status === 200) {
           dispatch(
             publico

@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import { actionPublicacaoSelecionada } from "../../store/actions/publicacoes/publicacaoSelecionada.action";
 import { actionMinhaPublicacaoSelecionada } from "../../store/actions/publicacoes/minhaPublicacaoSelecionada.action";
-import { NavLink } from "react-router-dom";
+
 export function ItemPublicacao({ publicacao, publico }) {
   const dispatch = useDispatch();
 
@@ -18,16 +19,14 @@ export function ItemPublicacao({ publicacao, publico }) {
 
   return (
     <div>
-
+      <p>Id: {publicacao.id}</p>
+      <p>Título: {publicacao.titulo}</p>
+      <p>Corpo: {publicacao.corpo}</p>
+      <p>Data: {publicacao.data}</p>
+      {/* <p>Usuário: {publicacao.usuario} </p> */}
 
       {/* clique em selecionar => selecionarProduto() */}
       {publico ? (
-        <div>
-          <p>Item publicado</p>
-          <p>Título: {publicacao.titulo}</p>
-          <p>Corpo: {publicacao.corpo}</p>
-          <p>Local: {publicacao.localizacao}</p>
-          <p>Data: {publicacao.data}</p>
           <NavLink
             to={"/VerPublicacao"}
             onClick={selecionarPublicacao}
@@ -35,12 +34,7 @@ export function ItemPublicacao({ publicacao, publico }) {
           >
             Selecionar
           </NavLink>
-        </div>
       ) : (
-        <div>
-          <p>Item publicacao</p>
-          <p>Título: {publicacao.titulo}</p>
-          <p>Data: {publicacao.data}</p>
           <NavLink
             to={"/VerMinhaPublicacao"}
             onClick={selecionarPublicacao}
@@ -48,10 +42,7 @@ export function ItemPublicacao({ publicacao, publico }) {
           >
             Selecionar
           </NavLink>
-        </div>
       )}
-
-      {/* clique em selecionar => selecionarPublicacao() */}
     </div>
   );
 }

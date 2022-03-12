@@ -1,5 +1,7 @@
+import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {NavLink} from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
 import { postPublicacao, putPublicacao } from "../../api/api";
 import {
   actionPutPublicacao,
@@ -10,13 +12,25 @@ export function EditarPublicacao({ novaPublicacao }) {
   const minhaPublicacaoSelecionada = useSelector(
     (state) => state.minhaPublicacaoSelecionada
   );
-  const publicacao = novaPublicacao ? {} : minhaPublicacaoSelecionada;
+  const publicacao = novaPublicacao ? null : minhaPublicacaoSelecionada;
   const dispatch = useDispatch();
 
-  const salvarPublicacao = async (publicacao) => {
+  const criarPublicacao = () => {
+    const publicacaoObj = {
+      titulo: document.getElementById("pubTit").value,
+      corpo: document.getElementById("pubCor").value,
+      data: document.getElementById("pubDat").value,
+    };
+    if (!novaPublicacao) {
+      publicacaoObj.id = publicacao.id;
+    }
+    return publicacaoObj;
+  };
+
+  const enviarPublicacao = async (publicacao) => {
     if (validarPublicacao(publicacao)) {
       try {
-        let res = novaPublicacao
+        const res = novaPublicacao
           ? await postPublicacao(publicacao)
           : await putPublicacao(publicacao);
         if (res.status === 200) {
@@ -37,6 +51,7 @@ export function EditarPublicacao({ novaPublicacao }) {
   };
 
   const validarPublicacao = (publicacao) => {
+    return true;
     // valida campos
     // se campos validos => return true
   };
@@ -44,7 +59,57 @@ export function EditarPublicacao({ novaPublicacao }) {
   return (
     <div>
       {/* exibir formulário com dados da publicacao */}
-      <div>
+      <Form
+        onSubmit={(event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          enviarPublicacao(criarPublicacao());
+        }}
+        className="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6"
+      >
+        <Row className="my-3">
+          <Form.Group className={`mb-2`}>
+            <Form.Label>Título:</Form.Label>
+            <Form.Control
+              id={"pubTit"}
+              required
+              type={"text"}
+              maxLength={100}
+              size={100}
+              defaultValue={publicacao === null ? "" : publicacao.titulo}
+            />
+          </Form.Group>
+
+          <Form.Group className={`mb-2`}>
+            <Form.Label>Mensagem:</Form.Label>
+            <Form.Control
+              id={"pubCor"}
+              as={"textarea"}
+              maxLength={5000}
+              size={5000}
+              defaultValue={publicacao === null ? "" : publicacao.corpo}
+            />
+          </Form.Group>
+
+          <Form.Group className={`mb-2`}>
+            <Form.Label>Data:</Form.Label>
+            <Form.Control
+              id={"pubDat"}
+              type={"date"}
+              required
+              defaultValue={publicacao === null ? "" : publicacao.valor}
+            />
+          </Form.Group>
+        </Row>
+
+        <Form.Group className="mb-3 d-flex justify-content-center">
+          <NavLink to="/minhasPublicacoes" className={"btn btn-danger"}>
+            Cancelar
+          </NavLink>
+          <input type={"submit"} value={"Salvar"} className="btn btn-primary" />
+        </Form.Group>
+      </Form>
+      {/* <div>
         <form class="row" align="center">
           <div class="col-sm-10 form-group">
             <label>Título:</label>
@@ -75,7 +140,6 @@ export function EditarPublicacao({ novaPublicacao }) {
 
           </div>
 
-          {/* exibir formulário com dados da publicacao */}
 
           <div >
             <br />
@@ -97,13 +161,10 @@ export function EditarPublicacao({ novaPublicacao }) {
             
           </div>
         </form>
-
-
-        
-      </div>
-
+      </div> 
+    */}
 
       {/* clique em salvar => salvarPublicacao(dados do formulário) */}
     </div>
-  )
+  );
 }
