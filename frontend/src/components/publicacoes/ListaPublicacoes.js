@@ -6,6 +6,7 @@ import { getPublicacoes, getMinhasPublicacoes } from "../../api/api";
 
 import { actionGetPublicacoes } from "../../store/actions/publicacoes/publicacoes.action";
 import { actionGetMinhasPublicacoes } from "../../store/actions/publicacoes/minhasPublicacoes.action";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function ListaPublicacoes({ publico }) {
   const minhasPublicacoes = useSelector((state) => state.minhasPublicacoes);
@@ -24,10 +25,10 @@ export function ListaPublicacoes({ publico }) {
               : actionGetMinhasPublicacoes(res.data)
           );
         } else {
-          // dispatch(atualizarFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao trazer as publicações!", false));
         }
       } catch (error) {
-        // atualizarFeedback("Erro na comunicação com o servidor!", false)
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     };
     if (publicacoes.length === 0) {

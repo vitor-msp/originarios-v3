@@ -1,7 +1,11 @@
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { postContato } from "../../api/api";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormContato() {
+  const dispatch = useDispatch();
+
   const criarContato = () => {
     return {
       nome: document.getElementById("cttNome").value,
@@ -17,14 +21,13 @@ export function FormContato() {
       try {
         const res = await postContato(contato);
         if (res.status === 200) {
-          console.log(res);
           document.getElementById("cttReset").click();
-          // dispatch(actionFeedback("enviado com sucesso", false));
+          dispatch(actionInfoModal("Contato realizado com sucesso!", true));
         } else {
-          // dispatch(actionFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao realizar o contato!", false));
         }
       } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     } else {
       // feedback p usuario => dados inválidos
@@ -32,7 +35,6 @@ export function FormContato() {
   };
 
   const validarContato = (contato) => {
-    console.log(contato);
     return contato;
     // valida campos
     // se campos validos => return true

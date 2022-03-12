@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { postPublicacao, putPublicacao } from "../../api/api";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 import {
   actionPutPublicacao,
   actionPostPublicacao,
@@ -39,11 +40,12 @@ export function EditarPublicacao({ novaPublicacao }) {
               ? actionPostPublicacao(res.data)
               : actionPutPublicacao(res.data)
           );
+          dispatch(actionInfoModal("Publicação salva com sucesso!", true));
         } else {
-          // dispatch(actionFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao salvar a publicação!", false));
         }
       } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     } else {
       // feedback p usuario => dados inválidos

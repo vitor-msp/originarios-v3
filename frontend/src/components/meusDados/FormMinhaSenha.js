@@ -1,7 +1,11 @@
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { putMinhaSenha } from "../../api/api";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormMinhaSenha() {
+  const dispatch = useDispatch();
+
   const criarMinhaSenha = () => {
     return {
       velhaSenha: document.getElementById("vSenha").value,
@@ -14,12 +18,17 @@ export function FormMinhaSenha() {
       try {
         const res = await putMinhaSenha(senhas);
         if (res.status === 200) {
-          // dispatch(actionFeedback(res.data, false));
+          dispatch(actionInfoModal("Senha atualizada com sucesso!", true));
+        } else if (
+          res.status === 400 &&
+          res.data.mensagem.trim() === "senhaIncorreta"
+        ) {
+          dispatch(actionInfoModal("Senha incorreta!", false));
         } else {
-          // dispatch(actionFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao atualizar a senha!", false));
         }
       } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     } else {
       // feedback p usuario => dados inválidos

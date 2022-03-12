@@ -2,6 +2,7 @@ import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { putMeusDados } from "../../api/api";
 import { actionPutMeusDados } from "../../store/actions/meusDados/meusDados.action";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 import { FormMinhaSenha } from "./FormMinhaSenha";
 
 export function FormMeusDados() {
@@ -31,12 +32,17 @@ export function FormMeusDados() {
         if (res.status === 200) {
           delete usuario.senha;
           dispatch(actionPutMeusDados(usuario));
-          // dispatch(actionFeedback(res.data, false));
+          dispatch(actionInfoModal("Dados salvos com sucesso!", true));
+        } else if (
+          res.status === 400 &&
+          res.data.mensagem.trim() === "senhaIncorreta"
+        ) {
+          dispatch(actionInfoModal("Senha incorreta!", false));
         } else {
-          // dispatch(actionFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao salvar os dados!", false));
         }
       } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     } else {
       // feedback p usuario => dados inválidos

@@ -1,7 +1,11 @@
 import { Form, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { postRegistro } from "../../api/api";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormRegistro() {
+  const dispatch = useDispatch();
+
   const criarRegistro = () => {
     return {
       nome: document.getElementById("regNome").value,
@@ -23,14 +27,20 @@ export function FormRegistro() {
       try {
         const res = await postRegistro(registro);
         if (res.status === 200) {
-          console.log(res);
           document.getElementById("regReset").click();
-          // dispatch(actionFeedback("enviado com sucesso", false));
+          dispatch(actionInfoModal("Cadastro realizado com sucesso!", true));
+        } else if (
+          res.status === 400 &&
+          res.data.mensagem.trim() === "emailJaEmUso"
+        ) {
+          dispatch(
+            actionInfoModal("O e-mail selecionado já está em uso!", false)
+          );
         } else {
-          // dispatch(actionFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao realizar o cadastro!", false));
         }
       } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     } else {
       // feedback p usuario => dados inválidos

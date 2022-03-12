@@ -6,6 +6,7 @@ import { getMeusProdutos, getProdutos } from "../../api/api";
 
 import { actionGetProdutos } from "../../store/actions/produtos/produtos.action";
 import { actionGetMeusProdutos } from "../../store/actions/produtos/meusProdutos.action";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function ListaProdutos({ publico }) {
   const meusProdutos = useSelector((state) => state.meusProdutos);
@@ -24,10 +25,10 @@ export function ListaProdutos({ publico }) {
               : actionGetMeusProdutos(res.data)
           );
         } else {
-          // dispatch(atualizarFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao trazer os produtos!", false));
         }
       } catch (error) {
-        // atualizarFeedback("Erro na comunicação com o servidor!", false)
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     };
     if (produtos.length === 0) {

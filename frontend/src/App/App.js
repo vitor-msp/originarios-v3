@@ -30,10 +30,13 @@ import {
   actionLimparMeusDados,
 } from "../store/actions/meusDados/meusDados.action";
 import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
+import { InfoModal } from "../components/modals/InfoModal";
+import { actionInfoModal } from "../store/actions/modal/infoModal.actions";
 
 function App() {
   const estaLogado = useSelector((state) => state.estaLogado);
   const meusDados = useSelector((state) => state.meusDados);
+  const infoModal = useSelector((state) => state.infoModal);
   const dispatch = useDispatch();
 
   const reqMeusDados = async () => {
@@ -41,12 +44,11 @@ function App() {
       const res = await getMeusDados();
       if (res.status === 200) {
         dispatch(actionGetMeusDados(res.data));
-        // dispatch(actionFeedback("enviado com sucesso", false));
       } else {
-        // dispatch(actionFeedback(res.data.message, false));
+        dispatch(actionInfoModal("Erro ao trazer seus dados!", false));
       }
     } catch (error) {
-      // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+      dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
     }
   };
 
@@ -126,6 +128,8 @@ function App() {
               ></Route>
             </Routes>
           </div>
+
+          {infoModal !== null && <InfoModal conteudo={infoModal} />}
 
           <Footer />
         </div>

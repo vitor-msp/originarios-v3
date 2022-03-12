@@ -2,6 +2,7 @@ import { Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { login } from "../../api/api";
 import { actionLogin } from "../../store/actions/meusDados/estaLogado.action";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormLogin() {
   const dispatch = useDispatch();
@@ -18,12 +19,17 @@ export function FormLogin() {
         const res = await login(autenticacao);
         if (res.status === 200) {
           dispatch(actionLogin(res.data));
-          // dispatch(actionFeedback("enviado com sucesso", false));
+          dispatch(actionInfoModal("Login efetuado com sucesso!", true));
+        } else if (
+          res.status === 400 &&
+          res.data.mensagem.trim() === "emailOuSenhaIncorretos"
+        ) {
+          dispatch(actionInfoModal("Usuário e/ou senha incorretos!", false));
         } else {
-          // dispatch(actionFeedback(res.data.message, false));
+          dispatch(actionInfoModal("Erro ao efetuar o login!", false));
         }
       } catch (error) {
-        // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     } else {
       // feedback p usuario => dados inválidos

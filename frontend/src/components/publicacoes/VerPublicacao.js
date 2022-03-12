@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { deletePublicacao } from "../../api/api";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 import { actionMinhaPublicacaoSelecionada } from "../../store/actions/publicacoes/minhaPublicacaoSelecionada.action";
 import { actionDeletePublicacao } from "../../store/actions/publicacoes/minhasPublicacoes.action";
@@ -28,11 +29,12 @@ export function VerPublicacao({ publico }) {
       const res = await deletePublicacao(publicacao);
       if (res.status === 200) {
         dispatch(actionDeletePublicacao(publicacao.id));
+        dispatch(actionInfoModal("Publicação deletada com sucesso!", true));
       } else {
-        // dispatch(actionFeedback(res.data.message, false));
+        dispatch(actionInfoModal("Erro ao deletar a publicação!", false));
       }
     } catch (error) {
-      // dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
+      dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
     }
   };
 
