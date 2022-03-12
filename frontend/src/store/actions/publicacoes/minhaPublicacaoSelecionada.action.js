@@ -4,3 +4,10 @@ export const actionMinhaPublicacaoSelecionada = (publicacao) => {
     payload: publicacao,
   };
 };
+
+export const actionLimparMinhaPublicacaoSelecionada = () => {
+  return {
+    type: "actionLimparMinhaPublicacaoSelecionada",
+    payload: null,
+  };
+};

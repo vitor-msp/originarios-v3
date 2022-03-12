@@ -32,6 +32,10 @@ import {
 import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
 import { InfoModal } from "../components/modals/InfoModal";
 import { actionInfoModal } from "../store/actions/modal/infoModal.actions";
+import { actionLimparMeusProdutos } from "../store/actions/produtos/meusProdutos.action";
+import { actionLimparMeuProdutoSelecionado } from "../store/actions/produtos/meuProdutoSelecionado.action";
+import { actionLimparMinhasPublicacoes } from "../store/actions/publicacoes/minhasPublicacoes.action";
+import { actionLimparMinhaPublicacaoSelecionada } from "../store/actions/publicacoes/minhaPublicacaoSelecionada.action";
 
 function App() {
   const estaLogado = useSelector((state) => state.estaLogado);
@@ -57,6 +61,10 @@ function App() {
       reqMeusDados();
     } else if (!estaLogado && meusDados !== null) {
       dispatch(actionLimparMeusDados());
+      dispatch(actionLimparMeusProdutos());
+      dispatch(actionLimparMeuProdutoSelecionado());
+      dispatch(actionLimparMinhasPublicacoes());
+      dispatch(actionLimparMinhaPublicacaoSelecionada());
     }
   }, [estaLogado]);
 

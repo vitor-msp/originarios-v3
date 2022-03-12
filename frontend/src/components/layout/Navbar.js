@@ -6,7 +6,7 @@ import { actionLogout } from "../../store/actions/meusDados/estaLogado.action";
 export function Navbar() {
   const dispatch = useDispatch();
   const logout = () => {
-    dispatch(actionLogout())
+    dispatch(actionLogout());
   };
 
   return (

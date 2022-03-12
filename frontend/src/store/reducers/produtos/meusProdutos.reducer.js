@@ -8,14 +8,17 @@ export const meusProdutosReducer = (state = [], action) => {
       return state;
 
     case "actionPutProduto":
-      const index = state.findIndex(({id}) => {
+      const index = state.findIndex(({ id }) => {
         return id === action.payload.id;
       });
       state[index] = action.payload;
       return state;
 
     case "actionDeleteProduto":
-      return state.filter(({id}) => id !== action.payload);
+      return state.filter(({ id }) => id !== action.payload);
+
+    case "actionLimparMeusProdutos":
+      return action.payload;
 
     default:
       return state;

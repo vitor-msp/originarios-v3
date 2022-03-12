@@ -25,3 +25,10 @@ export const actionDeleteProduto = (produtoId) => {
     payload: produtoId,
   };
 };
+
+export const actionLimparMeusProdutos = () => {
+  return {
+    type: "actionLimparMeusProdutos",
+    payload: [],
+  };
+};

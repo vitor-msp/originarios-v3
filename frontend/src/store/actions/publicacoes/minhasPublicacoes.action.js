@@ -25,3 +25,10 @@ export const actionDeletePublicacao = (publicacaoId) => {
     payload: publicacaoId,
   };
 };
+
+export const actionLimparMinhasPublicacoes = () => {
+  return {
+    type: "actionLimparMinhasPublicacoes",
+    payload: [],
+  };
+};

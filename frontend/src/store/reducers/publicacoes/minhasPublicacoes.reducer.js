@@ -8,14 +8,17 @@ export const minhasPublicacoesReducer = (state = [], action) => {
       return state;
 
     case "actionPutPublicacao":
-      const index = state.findIndex(({id}) => {
+      const index = state.findIndex(({ id }) => {
         return id === action.payload.id;
       });
       state[index] = action.payload;
       return state;
 
     case "actionDeletePublicacao":
-      return state.filter(({id}) => id !== action.payload);
+      return state.filter(({ id }) => id !== action.payload);
+
+    case "actionLimparMinhasPublicacoes":
+      return action.payload;
 
     default:
       return state;
