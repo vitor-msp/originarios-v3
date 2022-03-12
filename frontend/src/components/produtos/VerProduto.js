@@ -21,9 +21,9 @@ export function VerProduto({ publico }) {
 
   const deletarProduto = async () => {
     try {
-      let res = await deleteProduto(produto);
+      const res = await deleteProduto(produto);
       if (res.status === 200) {
-        dispatch(actionDeleteProduto(res.data));
+        dispatch(actionDeleteProduto(produto.id));
       } else {
         // dispatch(actionFeedback(res.data.message, false));
       }
@@ -34,44 +34,55 @@ export function VerProduto({ publico }) {
 
   return (
     <div>
-
       <div>
+        <p>Id: {produto.id}</p>
         <p>Título: {produto.titulo}</p>
         <p>Descrição: {produto.descricao}</p>
         <p>Corpo: {produto.corpo} </p>
-        <p>Usuário: {produto.usuario} </p>
+        <p>Valor: {produto.valor} </p>
+        {publico && (
+          <>
+            <p>Usuário nome: {produto.usuario.nome} </p>
+            <p>Usuário email: {produto.usuario.email} </p>
+            <p>Usuário ddd: {produto.usuario.ddd} </p>
+            <p>Usuário telefone: {produto.usuario.telefone} </p>
+            <p>Usuário cidade: {produto.usuario.cidade} </p>
+            <p>Usuário uf: {produto.usuario.uf} </p>
+            <p>Usuário tribo: {produto.usuario.tribo} </p>
+          </>
+        )}
+        {/* <p>Usuário: {produto.usuario} </p> */}
       </div>
 
       {/* se publico => exibir informações e botoes de contato */}
       {/* senão => exibir botoes editar e deletar */}
 
       {publico ? (
-      <div>
-        <NavLink
-        to={"/Produtos"}
-        onClick={produtoSelecionado}
-        className={"text-light"}
-        >
-          Voltar
-        </NavLink>
-        <NavLink
-        to={"/Produtos"}
-        onClick={produtoSelecionado}
-        className={"text-light"}
-        >
-          Whatsapp
-        </NavLink>
-        <NavLink
-        to={"/Produtos"}
-        onClick={produtoSelecionado}
-        className={"text-light"}
-        >
-          E-mail
-        </NavLink>
-        
-        {/*botao de whats e botao de email e botao de voltar*/}
-      </div>
-        
+        <div>
+          <NavLink
+            to={"/Produtos"}
+            onClick={produtoSelecionado}
+            className={"text-light"}
+          >
+            Voltar
+          </NavLink>
+          <NavLink
+            to={"/Produtos"}
+            onClick={produtoSelecionado}
+            className={"text-light"}
+          >
+            Whatsapp
+          </NavLink>
+          <NavLink
+            to={"/Produtos"}
+            onClick={produtoSelecionado}
+            className={"text-light"}
+          >
+            E-mail
+          </NavLink>
+
+          {/*botao de whats e botao de email e botao de voltar*/}
+        </div>
       ) : (
         <>
           <NavLink

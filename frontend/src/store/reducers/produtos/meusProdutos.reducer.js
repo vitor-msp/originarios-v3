@@ -4,7 +4,8 @@ export const meusProdutosReducer = (state = [], action) => {
       return action.payload;
 
     case "actionPostProduto":
-      return state.push(action.payload);
+      state.unshift(action.payload);
+      return state;
 
     case "actionPutProduto":
       const index = state.findIndex(({id}) => {

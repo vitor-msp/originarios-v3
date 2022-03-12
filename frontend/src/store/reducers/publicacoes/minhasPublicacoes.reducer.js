@@ -4,7 +4,8 @@ export const minhasPublicacoesReducer = (state = [], action) => {
       return action.payload;
 
     case "actionPostPublicacao":
-      return state.push(action.payload);
+      state.unshift(action.payload);
+      return state;
 
     case "actionPutPublicacao":
       const index = state.findIndex(({id}) => {

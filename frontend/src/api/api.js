@@ -74,73 +74,62 @@ export const putMinhaSenha = async (senhas) => {
 
 ////////////////// produtos //////////////////
 export const getProdutos = async () => {
-  // const res = await api
-  //   .get(`/produtos`)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: [
-      { id: 1, nome: "produto 1" },
-      { id: 2, nome: "produto 2" },
-    ],
-  };
+  const res = await api
+    .get(`/produtos`)
+    .then((res) => {
+      res.data = res.data.map(({ produto, usuarioResponse }) => {
+        return {
+          ...produto,
+          usuario: { ...usuarioResponse },
+        };
+      });
+      return res;
+    })
+    .catch((error) => error.response);
   return res;
 };
 
 export const getMeusProdutos = async () => {
-  // const res = await api
-  //   .get(`/meusProdutos`)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: [
-      { id: 1, nome: "meu produto 1" },
-      { id: 2, nome: "meu produto 2" },
-    ],
-  };
+  const res = await api
+    .get(`/meus-produtos`, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
+  console.log(res);
   return res;
 };
 
 export const postProduto = async (produto) => {
-  // const res = await api
-  //   .post(`/meusProdutos`, produto)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: produto,
-  };
+  const res = await api
+    .post(`/meus-produtos`, produto, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
 export const putProduto = async (produto) => {
-  // const res = await api
-  //   .put(`/meusProdutos`, produto)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: produto,
-  };
+  const res = await api
+    .put(`/meus-produtos`, produto, {
+      headers: configToken(),
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 
 export const deleteProduto = async (produto) => {
-  // const res = await api
-  //   .delete(`/meusProdutos`, produto.id)
-  //   .then((res) => res)
-  //   .catch((error) => error.response);
-  // return res;
-  const res = {
-    status: 200,
-    data: produto.id,
-  };
+  const res = await api
+    .delete(`/meus-produtos`, {
+      headers: configToken(),
+      params: {
+        produtoId: produto.id,
+      },
+    })
+    .then((res) => res)
+    .catch((error) => error.response);
   return res;
 };
 

@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { ListaProdutos } from "../../components/produtos/ListaProdutos";
 
 export function PaginaMeusProdutos() {
@@ -7,9 +8,9 @@ export function PaginaMeusProdutos() {
         <strong>Meus Produtos</strong>
       </h1>
 
-      <a href="/CriarProduto" className="btn btn-primary w-auto">
+      <NavLink to={"/CriarProduto"} className={"btn btn-primary w-auto"}>
         Criar Produto
-      </a>
+      </NavLink>
 
       <ListaProdutos publico={false} />
     </div>

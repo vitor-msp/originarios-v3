@@ -20,10 +20,12 @@ export function ItemProduto({ produto, publico }) {
   return (
 
     <div>
+      <p>Id: {produto.id}</p>
       <p>Título: {produto.titulo}</p>
       <p>Descrição: {produto.descricao}</p>
       <p>Corpo: {produto.corpo} </p>
-      <p>Usuário: {produto.usuario} </p>
+      <p>Valor: {produto.valor} </p>
+      {/* <p>Usuário: {produto.usuario} </p> */}
 
       {/* clique em selecionar => selecionarProduto() */}
       {publico ? (
