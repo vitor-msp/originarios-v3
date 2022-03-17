@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const url = `https://originarios.herokuapp.com`;
+// const url = `https://originarios.herokuapp.com`;
+export const url = `http://localhost:8080`;
 
 const api = axios.create({
   baseURL: `${url}/api`,
@@ -129,6 +130,14 @@ export const deleteProduto = async (produto) => {
     })
     .then((res) => res)
     .catch((error) => error.response);
+  return res;
+};
+
+export const getDadosImagem = async (id) => {
+  const res = await api
+    .get(`/imagens/dados/${id}`)
+    .then((res) => res.data)
+    .catch(() => null);
   return res;
 };
 

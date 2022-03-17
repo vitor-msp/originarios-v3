@@ -7,7 +7,7 @@ public class ProdutoResponse {
 	private Produto produto;
 	
 	private UsuarioResponse usuarioResponse;
-
+	
 	public Produto getProduto() {
 		return produto;
 	}

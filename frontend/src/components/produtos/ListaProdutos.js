@@ -17,7 +17,15 @@ export function ListaProdutos({ publico }) {
   useEffect(() => {
     const obterDados = async () => {
       try {
-        const res = publico ? await getProdutos() : await getMeusProdutos();
+        let res = null;
+        if (publico) {
+          res = await getProdutos();
+        } else if (meusProdutos.length === 0) {
+          res = await getMeusProdutos();
+        } else {
+          return;
+        }
+
         if (res.status === 200) {
           dispatch(
             publico
@@ -31,10 +39,8 @@ export function ListaProdutos({ publico }) {
         dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     };
-    if (produtos.length === 0) {
-      obterDados();
-    }
-  }, []);
+    obterDados();
+  }, [meusProdutos]);
 
   return (
     <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center p-0">

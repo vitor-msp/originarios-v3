@@ -44,7 +44,7 @@ public class MeusProdutosController{
 			@RequestBody Produto produto){
 		
 		try {
-			
+
 			token = token.substring(7, token.length());
 			String usuarioEmail = jwtUtils.getUserNameFromJwtToken(token);
 			
@@ -53,12 +53,12 @@ public class MeusProdutosController{
 				return ResponseEntity.badRequest()
 						.body(new MsgResponse("Erro: Cliente não encontrado!"));
 			}
-			
+
 			produto.setUsuario(usuario.get());
 		
 			produtoRepository.save(produto);
 			
-			return ResponseEntity.ok(produto);
+			return ResponseEntity.ok(produtoRepository.findById(produto.getId()));
 		
 		} catch (Exception e) {
 			
@@ -98,7 +98,7 @@ public class MeusProdutosController{
 			
 			produtoRepository.save(novoProduto);
 			
-			return ResponseEntity.ok(novoProduto);
+			return ResponseEntity.ok(produtoRepository.findById(novoProduto.getId()));
 		
 		} catch (Exception e) {
 			
@@ -165,6 +165,7 @@ public class MeusProdutosController{
 			List<Produto> produtos = usuario.get().getProdutos();
 
 			List<Produto> produtosInvertido = new ArrayList<>();
+			
 			int total = produtos.size();
 			for (int i = total - 1; i >= 0; i--) {
 				produtosInvertido.add(produtos.get(i));

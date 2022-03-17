@@ -43,6 +43,7 @@ public class ProdutosController{
 			for (Produto produto: produtos) {
 				
 				ProdutoResponse produtoResponse = new ProdutoResponse();
+
 				produtoResponse.setProduto(produto);
 				
 				UsuarioResponse usuarioResponse = new UsuarioResponse();

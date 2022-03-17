@@ -6,5 +6,4 @@ import br.com.originarios.app.models.entities.Produto;
 
 
 public interface ProdutoRepository extends PagingAndSortingRepository<Produto, Integer> {
-
 }

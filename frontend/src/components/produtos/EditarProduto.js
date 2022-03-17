@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Form, Row } from "react-bootstrap";
-// import { validarForm } from "../../helpers/validarForm";
-// import { getMeusProdutos } from "../../api/api";
+import { ImagemCrop } from "./ImagemCrop";
 
 import { postProduto, putProduto } from "../../api/api";
 import {
@@ -10,29 +9,37 @@ import {
   actionPostProduto,
 } from "../../store/actions/produtos/meusProdutos.action";
 import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
+import { useState } from "react";
 
 export function EditarProduto({ novoProduto }) {
+  const [img1Final, setImg1Final] = useState(null);
+  const [img2Final, setImg2Final] = useState(null);
+  const [img3Final, setImg3Final] = useState(null);
+  const [img4Final, setImg4Final] = useState(null);
+
   const meuProdutoSelecionado = useSelector(
     (state) => state.meuProdutoSelecionado
   );
   const produto = novoProduto ? null : meuProdutoSelecionado;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const criarProduto = () => {
     const produtoObj = {
+      id: novoProduto ? null : produto.id,
       titulo: document.getElementById("prodTit").value,
       descricao: document.getElementById("prodDes").value,
       corpo: document.getElementById("prodCor").value,
       valor: document.getElementById("prodVal").value,
+      imagem1: img1Final,
+      imagem2: img2Final,
+      imagem3: img3Final,
+      imagem4: img4Final,
     };
-    if (!novoProduto) {
-      produtoObj.id = produto.id;
-    }
     return produtoObj;
   };
 
   const enviarProduto = async (produto) => {
-    if (validarProduto(produto)) {
       try {
         const res = novoProduto
           ? await postProduto(produto)
@@ -44,22 +51,13 @@ export function EditarProduto({ novoProduto }) {
               : actionPutProduto(res.data)
           );
           dispatch(actionInfoModal("Produto salvo com sucesso!", true));
+          navigate("/MeusProdutos");
         } else {
           dispatch(actionInfoModal("Erro ao salvar o produto!", false));
         }
       } catch (error) {
         dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
-    } else {
-      //dispatch(actionFeedback("Erro na comunicação com o servidor!", false));
-      // feedback p usuario => dados inválidos
-    }
-  };
-
-  const validarProduto = (produto) => {
-    return true;
-    // valida campos
-    // se campos validos => return true
   };
 
   return (
@@ -117,6 +115,23 @@ export function EditarProduto({ novoProduto }) {
               defaultValue={produto === null ? "" : produto.valor}
             />
           </Form.Group>
+
+          <ImagemCrop
+            imgInicial={produto === null ? null : produto.imagem1}
+            imgFinal={setImg1Final}
+          />
+          <ImagemCrop
+            imgInicial={produto === null ? null : produto.imagem2}
+            imgFinal={setImg2Final}
+          />
+          <ImagemCrop
+            imgInicial={produto === null ? null : produto.imagem3}
+            imgFinal={setImg3Final}
+          />
+          <ImagemCrop
+            imgInicial={produto === null ? null : produto.imagem4}
+            imgFinal={setImg4Final}
+          />
         </Row>
 
         <Form.Group className="mb-3 d-flex justify-content-center">
@@ -126,66 +141,6 @@ export function EditarProduto({ novoProduto }) {
           <input type={"submit"} value={"Salvar"} className="btn btn-primary" />
         </Form.Group>
       </Form>
-      {/* exibir formulário com dados do produto */}
-      <div>
-        {/* <form class="row" align="left">
-          <div class="col-sm-10 form-group">
-            <label>Título:</label>
-            <br />
-            <input
-              type="text"
-              name={"tituloproduto"}
-              id="formproduto"
-              cols="140"
-              rols="1"
-              maxLength={100}
-            />
-          </div>
-          <div class="col-sm-10 form-group">
-            <label>Descrição:</label>
-            <br />
-            <input
-              type="text"
-              name="descricaoproduto"
-              id="formproduto"
-              cols="140"
-              rols="1"
-              maxLength={100}
-            />
-          </div>
-          <div class="col-sm-10 form-group">
-            <label>Corpo:</label>
-            <br />
-            <input
-              type="text"
-              name="corpoproduto"
-              id="formproduto"
-              cols="140"
-              rols="1"
-              maxLength={100}
-            />
-          </div>
-          <div class="col-sm-10 form-group">
-            <label>Valor:</label>
-            <br />
-            <input
-              type="text"
-              name={"valorproduto"}
-              id="formproduto"
-              cols="140"
-              rols="1"
-              maxLength={100}
-            />
-          </div>
-        </form> */}
-      </div>
-
-      {/*<div>
-        <p>id: {produto.id}</p>
-        <p>nome: {produto.nome}</p>
-      </div>*/}
-
-      {/* clique em salvar => salvarProduto(dados do formulário) */}
     </div>
   );
 }

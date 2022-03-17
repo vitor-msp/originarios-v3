@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { deleteProduto } from "../../api/api";
+import { getImagem } from "../../helpers/getImagem";
 import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 import { actionMeuProdutoSelecionado } from "../../store/actions/produtos/meuProdutoSelecionado.action";
@@ -17,7 +18,6 @@ export function VerProduto({ publico }) {
 
   const editarProduto = () => {
     dispatch(actionMeuProdutoSelecionado(produto));
-    // redireciona p rota EditarProduto
   };
 
   const deletarProduto = async () => {
@@ -42,6 +42,20 @@ export function VerProduto({ publico }) {
         <p>Descrição: {produto.descricao}</p>
         <p>Corpo: {produto.corpo} </p>
         <p>Valor: {produto.valor} </p>
+
+        {produto.imagem1 !== null && (
+          <img src={getImagem(produto.imagem1.id)} alt={produto.imagem1.nome} />
+        )}
+        {produto.imagem2 !== null && (
+          <img src={getImagem(produto.imagem2.id)} alt={produto.imagem2.nome} />
+        )}
+        {produto.imagem3 !== null && (
+          <img src={getImagem(produto.imagem3.id)} alt={produto.imagem3.nome} />
+        )}
+        {produto.imagem4 !== null && (
+          <img src={getImagem(produto.imagem4.id)} alt={produto.imagem4.nome} />
+        )}
+
         {publico && (
           <>
             <p>Usuário nome: {produto.usuario.nome} </p>
@@ -53,11 +67,7 @@ export function VerProduto({ publico }) {
             <p>Usuário tribo: {produto.usuario.tribo} </p>
           </>
         )}
-        {/* <p>Usuário: {produto.usuario} </p> */}
       </div>
-
-      {/* se publico => exibir informações e botoes de contato */}
-      {/* senão => exibir botoes editar e deletar */}
 
       {publico ? (
         <div>

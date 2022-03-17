@@ -17,7 +17,15 @@ export function ListaPublicacoes({ publico }) {
   useEffect(() => {
     const obterDados = async () => {
       try {
-        const res = publico ? await getPublicacoes() : await getMinhasPublicacoes();
+          let res = null;
+          if (publico) {
+            res = await getPublicacoes();
+          } else if (minhasPublicacoes.length === 0) {
+            res = await getMinhasPublicacoes();
+          } else {
+            return;
+          }
+
         if (res.status === 200) {
           dispatch(
             publico
@@ -31,15 +39,17 @@ export function ListaPublicacoes({ publico }) {
         dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
       }
     };
-    if (publicacoes.length === 0) {
-      obterDados();
-    }
-  }, []);
+    obterDados();
+  }, [minhasPublicacoes]);
 
   return (
     <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center p-0">
       {publicacoes.map((publicacao) => (
-        <ItemPublicacao key={publicacao.id} publicacao={publicacao} publico={publico} />
+        <ItemPublicacao
+          key={publicacao.id}
+          publicacao={publicacao}
+          publico={publico}
+        />
       ))}
     </div>
   );
