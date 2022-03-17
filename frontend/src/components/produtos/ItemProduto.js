@@ -4,6 +4,7 @@ import { getImagem } from "../../helpers/getImagem";
 
 import { actionProdutoSelecionado } from "../../store/actions/produtos/produtoSelecionado.action";
 import { actionMeuProdutoSelecionado } from "../../store/actions/produtos/meuProdutoSelecionado.action";
+import { formatarMoeda } from "../../helpers/formatarMoeda";
 
 export function ItemProduto({ produto, publico }) {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export function ItemProduto({ produto, publico }) {
       <p>Título: {produto.titulo}</p>
       <p>Descrição: {produto.descricao}</p>
       <p>Corpo: {produto.corpo} </p>
-      <p>Valor: {produto.valor} </p>
+      <p>Valor: {produto.valor === null ? null : formatarMoeda(produto.valor)} </p>
 
       {produto.imagem1 !== null && (
         <img src={getImagem(produto.imagem1.id)} alt={produto.imagem1.nome} />

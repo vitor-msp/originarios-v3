@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { actionPublicacaoSelecionada } from "../../store/actions/publicacoes/publicacaoSelecionada.action";
 import { actionMinhaPublicacaoSelecionada } from "../../store/actions/publicacoes/minhaPublicacaoSelecionada.action";
+import { formatarData } from "../../helpers/formatarData";
 
 export function ItemPublicacao({ publicacao, publico }) {
   const dispatch = useDispatch();
@@ -10,10 +11,8 @@ export function ItemPublicacao({ publicacao, publico }) {
   const selecionarPublicacao = () => {
     if (publico) {
       dispatch(actionPublicacaoSelecionada(publicacao));
-      // redireciona p rota VerPublicacao
     } else {
       dispatch(actionMinhaPublicacaoSelecionada(publicacao));
-      // redireciona p rota VerMinhaPublicacao
     }
   }
 
@@ -22,10 +21,9 @@ export function ItemPublicacao({ publicacao, publico }) {
       <p>Id: {publicacao.id}</p>
       <p>Título: {publicacao.titulo}</p>
       <p>Corpo: {publicacao.corpo}</p>
-      <p>Data: {publicacao.data}</p>
+      <p>Data: {publicacao.data === null ? null : formatarData(publicacao.data)}</p>
       {/* <p>Usuário: {publicacao.usuario} </p> */}
 
-      {/* clique em selecionar => selecionarProduto() */}
       {publico ? (
           <NavLink
             to={"/VerPublicacao"}

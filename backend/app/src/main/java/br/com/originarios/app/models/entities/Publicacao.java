@@ -32,6 +32,7 @@ public class Publicacao {
 	@Size(max = 100)
 	private String titulo;
 	
+	@NotBlank
 	@Size(max = 5000)
 	private String corpo;
 	

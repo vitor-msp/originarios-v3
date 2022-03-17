@@ -76,6 +76,7 @@ export function EditarPublicacao({ novaPublicacao }) {
             <Form.Control
               id={"pubCor"}
               as={"textarea"}
+              required
               maxLength={5000}
               size={5000}
               defaultValue={publicacao === null ? "" : publicacao.corpo}

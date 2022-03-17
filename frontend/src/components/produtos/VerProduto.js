@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { deleteProduto } from "../../api/api";
+import { formatarMoeda } from "../../helpers/formatarMoeda";
 import { getImagem } from "../../helpers/getImagem";
 import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
@@ -41,7 +42,7 @@ export function VerProduto({ publico }) {
         <p>Título: {produto.titulo}</p>
         <p>Descrição: {produto.descricao}</p>
         <p>Corpo: {produto.corpo} </p>
-        <p>Valor: {produto.valor} </p>
+        <p>Valor: {produto.valor === null ? null : formatarMoeda(produto.valor)}</p>
 
         {produto.imagem1 !== null && (
           <img src={getImagem(produto.imagem1.id)} alt={produto.imagem1.nome} />
