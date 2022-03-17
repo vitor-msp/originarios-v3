@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const url = `https://originarios.herokuapp.com`;
-export const url = `http://localhost:8080`;
+export const url = `https://originarios.herokuapp.com`;
 
 const api = axios.create({
   baseURL: `${url}/api`,
