@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { deletePublicacao } from "../../api/api";
 import { formatarData } from "../../helpers/formatarData";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 import { actionMinhaPublicacaoSelecionada } from "../../store/actions/publicacoes/minhaPublicacaoSelecionada.action";
-import { actionDeletePublicacao } from "../../store/actions/publicacoes/minhasPublicacoes.action";
 
 export function VerPublicacao({ publico }) {
   const publicacaoSelecionada = useSelector(
@@ -19,22 +17,17 @@ export function VerPublicacao({ publico }) {
     ? publicacaoSelecionada
     : minhaPublicacaoSelecionada;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const editarPublicacao = () => {
     dispatch(actionMinhaPublicacaoSelecionada(publicacao));
+    navigate("/EditarPublicacao");
   };
 
   const deletarPublicacao = async () => {
-    try {
-      const res = await deletePublicacao(publicacao);
-      if (res.status === 200) {
-        dispatch(actionDeletePublicacao(publicacao.id));
-        dispatch(actionInfoModal("Publicação deletada com sucesso!", true));
-      } else {
-        dispatch(actionInfoModal("Erro ao deletar a publicação!", false));
-      }
-    } catch (error) {
-      dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
+    const res = await dispatch(deletePublicacao(publicacao));
+    if (res === true) {
+      navigate("/MinhasPublicacoes");
     }
   };
 
@@ -64,25 +57,23 @@ export function VerPublicacao({ publico }) {
         </div>
       ) : (
         <div>
-          <NavLink
-            to={"/EditarPublicacao"}
+          <button
+            type={"button"}
             onClick={editarPublicacao}
             className={"btn btn-success"}
           >
             Editar
-          </NavLink>
+          </button>
 
-          <NavLink
-            to={"/MinhasPublicacoes"}
+          <button
+            type={"button"}
             onClick={deletarPublicacao}
             className={"btn btn-danger"}
           >
             Excluir
-          </NavLink>
+          </button>
         </div>
       )}
-
-      {/* clique em selecionar => selecionarPublicacao() */}
     </div>
   );
 }

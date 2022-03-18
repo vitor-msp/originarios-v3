@@ -1,137 +1,105 @@
 .scroll {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  .scroll {
-    max-width: 85vw;
-    justify-content: center;
-  
- 
-  }
-  .scroll .carousel {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding-bottom:6rem ;
-    
-  }
-  
-  .scroll .carousel::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scroll .carousel .item {
-    background-color: white;
-    margin-left: 40px;
-    height: 270px;
-    width: 210px;
-    border-radius: 16px;
-    flex: none;
-  }
+.scroll {
+  max-width: 85vw;
+  justify-content: center;
+}
+.scroll .carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 6rem;
+}
 
-  .scroll .carousel .item a{
-    
-    text-decoration: none;
-  }
+.scroll .carousel::-webkit-scrollbar {
+  display: none;
+}
 
-  
-  
-  .scroll .carousel .item img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    display: flex;
-   
-  }
-  
-  .scroll .carousel .item .price {
-    height: 70px;
-    display: flex;
+.scroll .carousel .item {
+  background-color: white;
+  margin-left: 40px;
+  height: 270px;
+  width: 210px;
+  border-radius: 16px;
+  flex: none;
+}
 
+.scroll .carousel .item a {
+  text-decoration: none;
+}
 
-  }
-  
- 
-  
-  
-  .scroll .carousel .item .price {
-    
-    
-    font-size: 1.2rem;
-    font-weight: bold;
-    background-color: #ffffff;
-    border-radius: 10px;
-    position: relative;
-    top: -95px;
-  
-  
-  
-  }
-  
+.scroll .carousel .item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+}
 
-  .scroll .carousel .item span {
-  
-    text-align: center;
-    color: #1e1e1e;
-    margin: 20px;
-    border-radius: 10px;
-  }
+.scroll .carousel .item .price {
+  height: 70px;
+  display: flex;
+}
 
-  .scroll .buttons {
-    width: 100%;
-    text-align: center;
-    padding-left: 15rem;
-    padding-top: 4rem;
- 
-    
-  }
-  .scroll .buttons button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    
-  }
+.scroll .carousel .item .price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  position: relative;
+  top: -95px;
+}
 
-  .scroll .buttons button:first-child img {
-    transform: rotate(180deg);
-  }
-  
-  .scroll .buttons button img {
-    height: 1.5rem;
-   
+.scroll .carousel .item span {
+  text-align: center;
+  color: #1e1e1e;
+  margin: 20px;
+  border-radius: 10px;
+}
 
-  }
+.scroll .buttons {
+  width: 100%;
+  text-align: center;
+  padding-left: 15rem;
+  padding-top: 4rem;
+}
+.scroll .buttons button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 
-  .scroll .buttons button {
-    height: 3rem;
-    width: 3rem;
-    background-image:linear-gradient(to bottom right, rgb(223, 220, 235), rgb(172, 178, 212));
-    border-radius: 25px;
-    margin-left: 2rem;
-    
+.scroll .buttons button:first-child img {
+  transform: rotate(180deg);
+}
 
-  }
+.scroll .buttons button img {
+  height: 1.5rem;
+}
 
-  .scroll .buttons button {
-  
-    
-    position: relative;
-    left: 36%;
-    margin-bottom: 20px;
-    top: -20px;
+.scroll .buttons button {
+  height: 3rem;
+  width: 3rem;
+  background-image: linear-gradient(
+    to bottom right,
+    rgb(223, 220, 235),
+    rgb(172, 178, 212)
+  );
+  border-radius: 25px;
+  margin-left: 2rem;
+}
 
-  }
+.scroll .buttons button {
+  position: relative;
+  left: 36%;
+  margin-bottom: 20px;
+  top: -20px;
+}
 
-  .scroll h1 {
-
-    
-    position: relative;
-    padding-left: 2.5rem;    
-
-
-  }
-
-  
+.scroll h1 {
+  position: relative;
+  padding-left: 2.5rem;
+}

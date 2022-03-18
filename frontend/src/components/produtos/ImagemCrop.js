@@ -109,6 +109,7 @@ export function ImagemCrop({ imgInicial, imgFinal }) {
         <Form.Label>Imagem:</Form.Label>
         <Form.Control
           type={"file"}
+          // required
           accept={"image/*"}
           onChange={carregarImagem}
         />

@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { deleteProduto } from "../../api/api";
 import { formatarMoeda } from "../../helpers/formatarMoeda";
 import { getImagem } from "../../helpers/getImagem";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 import { actionMeuProdutoSelecionado } from "../../store/actions/produtos/meuProdutoSelecionado.action";
-import { actionDeleteProduto } from "../../store/actions/produtos/meusProdutos.action";
 
 export function VerProduto({ publico }) {
   const produtoSelecionado = useSelector((state) => state.produtoSelecionado);
@@ -16,22 +14,17 @@ export function VerProduto({ publico }) {
   );
   const produto = publico ? produtoSelecionado : meuProdutoSelecionado;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const editarProduto = () => {
     dispatch(actionMeuProdutoSelecionado(produto));
+    navigate("/EditarProduto");
   };
 
   const deletarProduto = async () => {
-    try {
-      const res = await deleteProduto(produto);
-      if (res.status === 200) {
-        dispatch(actionDeleteProduto(produto.id));
-        dispatch(actionInfoModal("Produto deletado com sucesso!", true));
-      } else {
-        dispatch(actionInfoModal("Erro ao deletar o produto!", false));
-      }
-    } catch (error) {
-      dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
+    const res = await dispatch(deleteProduto(produto));
+    if (res === true) {
+      navigate("/MeusProdutos");
     }
   };
 
@@ -42,7 +35,9 @@ export function VerProduto({ publico }) {
         <p>Título: {produto.titulo}</p>
         <p>Descrição: {produto.descricao}</p>
         <p>Corpo: {produto.corpo} </p>
-        <p>Valor: {produto.valor === null ? null : formatarMoeda(produto.valor)}</p>
+        <p>
+          Valor: {produto.valor === null ? null : formatarMoeda(produto.valor)}
+        </p>
 
         {produto.imagem1 !== null && (
           <img src={getImagem(produto.imagem1.id)} alt={produto.imagem1.nome} />
@@ -98,20 +93,20 @@ export function VerProduto({ publico }) {
         </div>
       ) : (
         <>
-          <NavLink
-            to={"/EditarProduto"}
+          <button
+            type={"button"}
             onClick={editarProduto}
             className={"btn btn-success"}
           >
             Editar
-          </NavLink>
-          <NavLink
-            to={"/MeusProdutos"}
+          </button>
+          <button
+            type={"button"}
             onClick={deletarProduto}
             className={"btn btn-danger"}
           >
             Excluir
-          </NavLink>
+          </button>
         </>
       )}
     </div>

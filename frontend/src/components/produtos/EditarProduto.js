@@ -2,13 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { Form, Row } from "react-bootstrap";
 import { ImagemCrop } from "./ImagemCrop";
-
 import { postProduto, putProduto } from "../../api/api";
-import {
-  actionPutProduto,
-  actionPostProduto,
-} from "../../store/actions/produtos/meusProdutos.action";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 import { useState } from "react";
 
 export function EditarProduto({ novoProduto }) {
@@ -40,24 +34,12 @@ export function EditarProduto({ novoProduto }) {
   };
 
   const enviarProduto = async (produto) => {
-      try {
-        const res = novoProduto
-          ? await postProduto(produto)
-          : await putProduto(produto);
-        if (res.status === 200) {
-          dispatch(
-            novoProduto
-              ? actionPostProduto(res.data)
-              : actionPutProduto(res.data)
-          );
-          dispatch(actionInfoModal("Produto salvo com sucesso!", true));
-          navigate("/MeusProdutos");
-        } else {
-          dispatch(actionInfoModal("Erro ao salvar o produto!", false));
-        }
-      } catch (error) {
-        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
-      }
+    const res = novoProduto
+      ? await dispatch(postProduto(produto))
+      : await dispatch(putProduto(produto));
+    if (res === true) {
+      navigate("/MeusProdutos");
+    }
   };
 
   return (
@@ -111,6 +93,7 @@ export function EditarProduto({ novoProduto }) {
             <Form.Control
               id={"prodVal"}
               type={"number"}
+              required
               min={0}
               defaultValue={produto === null ? "" : produto.valor}
             />

@@ -23,7 +23,7 @@ import { PaginaVerPublicacao } from "../pages/publicacoes/PaginaVerPublicacao";
 import { PaginaVerMinhaPublicacao } from "../pages/publicacoes/PaginaVerMinhaPublicacao";
 import { PaginaEditarPublicacao } from "../pages/publicacoes/PaginaEditarPublicacao";
 import { PaginaCriarPublicacao } from "../pages/publicacoes/PaginaCriarPublicacao";
-import { getMeusDados } from "../api/api";
+import { getMeusDados, getProdutos } from "../api/api";
 import { existeToken } from "../helpers/jwtToken";
 import {
   actionGetMeusDados,
@@ -41,6 +41,7 @@ function App() {
   const estaLogado = useSelector((state) => state.estaLogado);
   const meusDados = useSelector((state) => state.meusDados);
   const infoModal = useSelector((state) => state.infoModal);
+  const produtos = useSelector((state) => state.produtos);
   const dispatch = useDispatch();
 
   const reqMeusDados = async () => {
@@ -72,6 +73,9 @@ function App() {
     if (existeToken()) {
       dispatch(actionLogin());
     }
+    (async () => {
+      if(produtos.length === 0) dispatch(getProdutos());
+    })();
   }, []);
 
   return (

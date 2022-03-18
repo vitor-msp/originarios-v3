@@ -1,6 +1,36 @@
 import axios from "axios";
+import { actionGetProdutos } from "../store/actions/produtos/produtos.action";
+import { actionGetPublicacoes } from "../store/actions/publicacoes/publicacoes.action";
+import {
+  actionGetMinhasPublicacoes,
+  actionPostPublicacao,
+  actionPutPublicacao,
+  actionDeletePublicacao,
+} from "../store/actions/publicacoes/minhasPublicacoes.action";
+import { actionInfoModal } from "../store/actions/modal/infoModal.actions";
+import {
+  actionDeleteProduto,
+  actionGetMeusProdutos,
+  actionPostProduto,
+  actionPutProduto,
+} from "../store/actions/produtos/meusProdutos.action";
 
 export const url = `https://originarios.herokuapp.com`;
+const msgErroServ = "Erro na comunicação com o servidor!";
+
+const tratarErro = (res, msgSuc, msgErro) => async (dispatch) => {
+  if (!res.status) {
+    dispatch(actionInfoModal(msgErroServ, false));
+  } else if (res.status === 200) {
+    if (msgSuc !== null) {
+      dispatch(actionInfoModal(msgSuc, true));
+    }
+    return true;
+  } else {
+    dispatch(actionInfoModal(msgErro, false));
+  }
+  return false;
+};
 
 const api = axios.create({
   baseURL: `${url}/api`,
@@ -73,7 +103,7 @@ export const putMinhaSenha = async (senhas) => {
 };
 
 ////////////////// produtos //////////////////
-export const getProdutos = async () => {
+export const getProdutos = () => async (dispatch) => {
   const res = await api
     .get(`/produtos`)
     .then((res) => {
@@ -85,41 +115,71 @@ export const getProdutos = async () => {
       });
       return res;
     })
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (await dispatch(tratarErro(res, null, "Erro ao trazer os produtos!"))) {
+    dispatch(actionGetProdutos(res.data));
+    return true;
+  }
+  return false;
 };
 
-export const getMeusProdutos = async () => {
+export const getMeusProdutos = () => async (dispatch) => {
   const res = await api
     .get(`/meus-produtos`, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (await dispatch(tratarErro(res, null, "Erro ao trazer os produtos!"))) {
+    dispatch(actionGetMeusProdutos(res.data));
+    return true;
+  }
+  return false;
 };
 
-export const postProduto = async (produto) => {
+export const postProduto = (produto) => async (dispatch) => {
   const res = await api
     .post(`/meus-produtos`, produto, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(res, "Produto salvo com sucesso!", "Erro ao salvar o produto!")
+    )
+  ) {
+    dispatch(actionPostProduto(res.data));
+    dispatch(getProdutos());
+    return true;
+  }
+  return false;
 };
 
-export const putProduto = async (produto) => {
+export const putProduto = (produto) => async (dispatch) => {
   const res = await api
     .put(`/meus-produtos`, produto, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(res, "Produto salvo com sucesso!", "Erro ao salvar o produto!")
+    )
+  ) {
+    dispatch(actionPutProduto(res.data));
+    dispatch(getProdutos());
+    return true;
+  }
+  return false;
 };
 
-export const deleteProduto = async (produto) => {
+export const deleteProduto = (produto) => async (dispatch) => {
   const res = await api
     .delete(`/meus-produtos`, {
       headers: configToken(),
@@ -128,8 +188,22 @@ export const deleteProduto = async (produto) => {
       },
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Produto deletado com sucesso!",
+        "Erro ao deletar o produto!"
+      )
+    )
+  ) {
+    dispatch(actionDeleteProduto(produto.id));
+    dispatch(getProdutos());
+    return true;
+  }
+  return false;
 };
 
 export const getDadosImagem = async (id) => {
@@ -141,7 +215,7 @@ export const getDadosImagem = async (id) => {
 };
 
 ////////////////// publicacoes //////////////////
-export const getPublicacoes = async () => {
+export const getPublicacoes = () => async (dispatch) => {
   const res = await api
     .get(`/publicacoes`)
     .then((res) => {
@@ -153,41 +227,79 @@ export const getPublicacoes = async () => {
       });
       return res;
     })
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (await dispatch(tratarErro(res, null, "Erro ao trazer as publicações!"))) {
+    dispatch(actionGetPublicacoes(res.data));
+    return true;
+  }
+  return false;
 };
 
-export const getMinhasPublicacoes = async () => {
+export const getMinhasPublicacoes = () => async (dispatch) => {
   const res = await api
     .get(`/minhas-publicacoes`, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (await dispatch(tratarErro(res, null, "Erro ao trazer as publicações!"))) {
+    dispatch(actionGetMinhasPublicacoes(res.data));
+    return true;
+  }
+  return false;
 };
 
-export const postPublicacao = async (publicacao) => {
+export const postPublicacao = (publicacao) => async (dispatch) => {
   const res = await api
     .post(`/minhas-publicacoes`, publicacao, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+    if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Publicação salva com sucesso!",
+        "Erro ao salvar a publicação!"
+      )
+    )
+  ) {
+    dispatch(actionPostPublicacao(res.data));
+    dispatch(getPublicacoes());
+    return true;
+  }
+  return false;
 };
 
-export const putPublicacao = async (publicacao) => {
+export const putPublicacao = (publicacao) => async (dispatch) => {
   const res = await api
     .put(`/minhas-publicacoes`, publicacao, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Publicação salva com sucesso!",
+        "Erro ao salvar a publicação!"
+      )
+    )
+  ) {
+    dispatch(actionPutPublicacao(res.data));
+    dispatch(getPublicacoes());
+    return true;
+  }
+  return false;
 };
 
-export const deletePublicacao = async (publicacao) => {
+export const deletePublicacao = (publicacao) => async (dispatch) => {
   const res = await api
     .delete(`/minhas-publicacoes`, {
       headers: configToken(),
@@ -196,6 +308,20 @@ export const deletePublicacao = async (publicacao) => {
       },
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Publicação deletada com sucesso!",
+        "Erro ao deletar a publicação!"
+      )
+    )
+  ) {
+    dispatch(actionDeletePublicacao(publicacao.id));
+    dispatch(getPublicacoes());
+    return true;
+  }
+  return false;
 };

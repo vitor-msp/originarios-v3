@@ -3,11 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { postPublicacao, putPublicacao } from "../../api/api";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
-import {
-  actionPutPublicacao,
-  actionPostPublicacao,
-} from "../../store/actions/publicacoes/minhasPublicacoes.action";
 
 export function EditarPublicacao({ novaPublicacao }) {
   const minhaPublicacaoSelecionada = useSelector(
@@ -28,23 +23,11 @@ export function EditarPublicacao({ novaPublicacao }) {
   };
 
   const enviarPublicacao = async (publicacao) => {
-    try {
-      const res = novaPublicacao
-        ? await postPublicacao(publicacao)
-        : await putPublicacao(publicacao);
-      if (res.status === 200) {
-        dispatch(
-          novaPublicacao
-            ? actionPostPublicacao(res.data)
-            : actionPutPublicacao(res.data)
-        );
-        dispatch(actionInfoModal("Publicação salva com sucesso!", true));
-        navigate("/MinhasPublicacoes");
-      } else {
-        dispatch(actionInfoModal("Erro ao salvar a publicação!", false));
-      }
-    } catch (error) {
-      dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
+    const res = novaPublicacao
+      ? await dispatch(postPublicacao(publicacao))
+      : await dispatch(putPublicacao(publicacao));
+    if (res === true) {
+      navigate("/MinhasPublicacoes");
     }
   };
 
