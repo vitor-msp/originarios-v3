@@ -8,6 +8,7 @@ import { FormMinhaSenha } from "./FormMinhaSenha";
 export function FormMeusDados() {
   const meusDados = useSelector((state) => state.meusDados);
   const [edicao, setEdicao] = useState(false);
+  const [edicaoSenha, setEdicaoSenha] = useState(false);
   const [cpf, setCpf] = useState(
     meusDados === null || meusDados.cpf === null ? "" : meusDados.cpf
   );
@@ -241,7 +242,7 @@ export function FormMeusDados() {
           )}
         </Row>
 
-        <Form.Group className="mb-3  d-flex justify-content-center">
+        <Form.Group className="mb-3 d-flex justify-content-center">
           {edicao ? (
             <>
               <button
@@ -281,7 +282,22 @@ export function FormMeusDados() {
         </Form.Group>
       </Form>
 
-      <FormMinhaSenha />
+      <hr className="my-4" />
+
+      {!edicaoSenha && (
+        <Form.Group className="mb-3 d-flex justify-content-center">
+          <button
+            type={"button"}
+            onClick={() => setEdicaoSenha(true)}
+            className={"btn text-light"}
+            style={{ backgroundColor: "var(--corMaisEscura)" }}
+          >
+            Alterar Senha
+          </button>
+        </Form.Group>
+      )}
+
+      {edicaoSenha && <FormMinhaSenha edicaoSenha={setEdicaoSenha} />}
     </div>
   );
 }

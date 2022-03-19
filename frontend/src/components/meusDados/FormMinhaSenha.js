@@ -3,8 +3,27 @@ import { useDispatch } from "react-redux";
 import { putMinhaSenha } from "../../api/api";
 import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
-export function FormMinhaSenha() {
+export function FormMinhaSenha({ edicaoSenha }) {
   const dispatch = useDispatch();
+
+  const submit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (validarSenha()) {
+      enviarMinhaSenha(criarMinhaSenha());
+    } else {
+      dispatch(
+        actionInfoModal("Senha e confirmação precisam ser iguais!", false)
+      );
+    }
+  };
+
+  const validarSenha = () => {
+    return (
+      document.getElementById("nSenha").value ===
+      document.getElementById("cnSenha").value
+    );
+  };
 
   const criarMinhaSenha = () => {
     return {
@@ -14,41 +33,16 @@ export function FormMinhaSenha() {
   };
 
   const enviarMinhaSenha = async (senhas) => {
-    if (validarMinhaSenha(senhas)) {
-      try {
-        const res = await putMinhaSenha(senhas);
-        if (res.status === 200) {
-          dispatch(actionInfoModal("Senha atualizada com sucesso!", true));
-        } else if (
-          res.status === 400 &&
-          res.data.mensagem.trim() === "senhaIncorreta"
-        ) {
-          dispatch(actionInfoModal("Senha incorreta!", false));
-        } else {
-          dispatch(actionInfoModal("Erro ao atualizar a senha!", false));
-        }
-      } catch (error) {
-        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
-      }
-    } else {
-      // feedback p usuario => dados inválidos
+    const res = await dispatch(putMinhaSenha(senhas));
+    if (res === true) {
+      edicaoSenha(false);
     }
-  };
-
-  const validarMinhaSenha = (senhas) => {
-    return true;
-    // valida campos
-    // se campos validos => return true
   };
 
   return (
     <div>
       <Form
-        onSubmit={(event) => {
-          event.preventDefault();
-          event.stopPropagation();
-          enviarMinhaSenha(criarMinhaSenha());
-        }}
+        onSubmit={submit}
         className="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6"
       >
         <Row className="my-3">
@@ -85,13 +79,22 @@ export function FormMinhaSenha() {
             />
           </Form.Group>
         </Row>
-        <Form.Group className="mb-3  d-flex justify-content-center">
+
+        <Form.Group className="mb-3 d-flex justify-content-center">
+          <button
+            type={"button"}
+            onClick={() => edicaoSenha(false)}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
+          >
+            Cancelar
+          </button>
           <input
-            type={"reset"}
-            value={"Limpar"}
-            className="btn btn-secondary"
+            type={"submit"}
+            value={"Salvar"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corMaisEscura)" }}
           />
-          <input type={"submit"} value={"Salvar"} className="btn btn-primary" />
         </Form.Group>
       </Form>
     </div>

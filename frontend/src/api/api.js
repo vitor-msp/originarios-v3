@@ -168,14 +168,28 @@ export const putMeusDados = (usuario) => async (dispatch) => {
   return false;
 };
 
-export const putMinhaSenha = async (senhas) => {
+export const putMinhaSenha = (senhas) => async (dispatch) => {
   const res = await api
     .put(`/usuario/senha`, senhas, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Senha atualizada com sucesso!",
+        "Erro ao atualizar a senha!",
+        "senhaIncorreta",
+        "Senha incorreta!"
+      )
+    )
+  ) {
+    return true;
+  }
+  return false;
 };
 
 ////////////////// produtos //////////////////
