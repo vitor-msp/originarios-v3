@@ -1,11 +1,11 @@
 import { Form, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { login } from "../../api/api";
-import { actionLogin } from "../../store/actions/meusDados/estaLogado.action";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormLogin() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const criarLogin = () => {
     return {
       email: document.getElementById("logEmail").value,
@@ -14,32 +14,10 @@ export function FormLogin() {
   };
 
   const enviarLogin = async (autenticacao) => {
-    if (validarLogin(autenticacao)) {
-      try {
-        const res = await login(autenticacao);
-        if (res.status === 200) {
-          dispatch(actionLogin(res.data));
-          dispatch(actionInfoModal("Login efetuado com sucesso!", true));
-        } else if (
-          res.status === 400 &&
-          res.data.mensagem.trim() === "emailOuSenhaIncorretos"
-        ) {
-          dispatch(actionInfoModal("Usuário e/ou senha incorretos!", false));
-        } else {
-          dispatch(actionInfoModal("Erro ao efetuar o login!", false));
-        }
-      } catch (error) {
-        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
-      }
-    } else {
-      // feedback p usuario => dados inválidos
+    const res = await dispatch(login(autenticacao));
+    if (res === true) {
+      navigate("/");
     }
-  };
-
-  const validarLogin = (autenticacao) => {
-    return true;
-    // valida campos
-    // se campos validos => return true
   };
 
   return (
@@ -79,12 +57,14 @@ export function FormLogin() {
           <input
             type={"reset"}
             value={"Limpar"}
-            className="btn btn-secondary"
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
           />
           <input
             type={"submit"}
             value={"Acessar"}
-            className="btn btn-primary"
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corMaisEscura)" }}
           />
         </Form.Group>
       </Form>

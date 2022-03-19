@@ -1,7 +1,6 @@
 import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { postContato } from "../../api/api";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormContato() {
   const meusDados = useSelector((state) => state.meusDados);

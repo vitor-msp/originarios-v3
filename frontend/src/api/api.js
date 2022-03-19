@@ -15,23 +15,32 @@ import {
   actionPutProduto,
 } from "../store/actions/produtos/meusProdutos.action";
 import { actionPaginacao } from "../store/actions/paginacao/paginacao.action";
+import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
 
 export const url = `https://originarios.herokuapp.com`;
 const msgErroServ = "Erro na comunicação com o servidor!";
 
-const tratarErro = (res, msgSuc, msgErro) => async (dispatch) => {
-  if (!res.status) {
-    dispatch(actionInfoModal(msgErroServ, false));
-  } else if (res.status === 200) {
-    if (msgSuc !== null) {
-      dispatch(actionInfoModal(msgSuc, true));
+const tratarErro =
+  (res, msgSuc, msgErro, resErroValid = null, msgErroValid = null) =>
+  async (dispatch) => {
+    if (!res.status) {
+      dispatch(actionInfoModal(msgErroServ, false));
+    } else if (res.status === 200) {
+      if (msgSuc !== null) {
+        dispatch(actionInfoModal(msgSuc, true));
+      }
+      return true;
+    } else if (
+      resErroValid !== null &&
+      res.status === 400 &&
+      res.data.mensagem.trim() === resErroValid
+    ) {
+      dispatch(actionInfoModal(msgErroValid, false));
+    } else {
+      dispatch(actionInfoModal(msgErro, false));
     }
-    return true;
-  } else {
-    dispatch(actionInfoModal(msgErro, false));
-  }
-  return false;
-};
+    return false;
+  };
 
 const api = axios.create({
   baseURL: `${url}/api`,
@@ -49,20 +58,25 @@ const configToken = () => {
 };
 
 ////////////// endpoints usuário //////////////////
-export const postContato =
-  (contato) =>
-  async (dispatch) => {
-    const res = await api
-      .post(`/contato`, contato)
-      .then((res) => res)
-      .catch((error) => (error.response ? error.response : error));
+export const postContato = (contato) => async (dispatch) => {
+  const res = await api
+    .post(`/contato`, contato)
+    .then((res) => res)
+    .catch((error) => (error.response ? error.response : error));
 
-    if (await dispatch(tratarErro(res, "Contato realizado com sucesso!", "Erro ao realizar o contato!")))
-     {
-      return true;
-    }
-    return false;
-  };
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Contato realizado com sucesso!",
+        "Erro ao realizar o contato!"
+      )
+    )
+  ) {
+    return true;
+  }
+  return false;
+};
 
 export const postRegistro = async (registro) => {
   const res = await api
@@ -72,12 +86,27 @@ export const postRegistro = async (registro) => {
   return res;
 };
 
-export const login = async (autenticacao) => {
+export const login = (autenticacao) => async (dispatch) => {
   const res = await api
     .post(`/auth/login`, autenticacao)
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Login efetuado com sucesso!",
+        "Erro ao efetuar o login!",
+        "emailOuSenhaIncorretos",
+        "Usuário e/ou senha incorretos!"
+      )
+    )
+  ) {
+    dispatch(actionLogin(res.data));
+    return true;
+  }
+  return false;
 };
 
 export const getMeusDados = async () => {
