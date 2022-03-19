@@ -15,7 +15,10 @@ import {
   actionPutProduto,
 } from "../store/actions/produtos/meusProdutos.action";
 import { actionPaginacao } from "../store/actions/paginacao/paginacao.action";
-import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
+import {
+  actionLogin,
+  actionLogout,
+} from "../store/actions/meusDados/estaLogado.action";
 import {
   actionGetMeusDados,
   actionPutMeusDados,
@@ -135,10 +138,15 @@ export const getMeusDados = () => async (dispatch) => {
     .then((res) => res)
     .catch((error) => (error.response ? error.response : error));
 
-  if (await dispatch(tratarErro(res, null, "Erro ao trazer seus dados!"))) {
+  if (
+    await dispatch(
+      tratarErro(res, null, "Gentileza realizar o login novamente!")
+    )
+  ) {
     dispatch(actionGetMeusDados(res.data));
     return true;
   }
+  dispatch(actionLogout());
   return false;
 };
 

@@ -8,7 +8,11 @@ export function PaginaMinhasPublicacoes() {
         <strong>Minhas Publicações</strong>
       </h1>
 
-      <NavLink to={"/CriarPublicacao"} className={"btn btn-primary w-auto"}>
+      <NavLink
+        to={"/CriarPublicacao"}
+        className={"btn text-light w-auto mb-4"}
+        style={{ backgroundColor: "var(--corPoucoEscura)" }}
+      >
         Criar Publicação
       </NavLink>
 

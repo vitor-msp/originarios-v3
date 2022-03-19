@@ -8,7 +8,11 @@ export function PaginaMeusProdutos() {
         <strong>Meus Produtos</strong>
       </h1>
 
-      <NavLink to={"/CriarProduto"} className={"btn btn-primary w-auto"}>
+      <NavLink
+        to={"/CriarProduto"}
+        className={"btn text-light w-auto mb-4"}
+        style={{ backgroundColor: "var(--corPoucoEscura)" }}
+      >
         Criar Produto
       </NavLink>
 

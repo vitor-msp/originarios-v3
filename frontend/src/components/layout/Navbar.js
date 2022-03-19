@@ -2,14 +2,16 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLogout } from "../../store/actions/meusDados/estaLogado.action";
+import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 import logo from "../../pages/img/originarios-cortado.png";
 import "animate.css";
 
 export function Navbar() {
   const estaLogado = useSelector((state) => state.estaLogado);
   const dispatch = useDispatch();
-  const logout = () => {
-    dispatch(actionLogout());
+  const logout = async () => {
+    await dispatch(actionLogout());
+    dispatch(actionInfoModal("Você saiu da sua conta!", false));
   };
 
   return (

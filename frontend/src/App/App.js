@@ -25,13 +25,9 @@ import { PaginaEditarPublicacao } from "../pages/publicacoes/PaginaEditarPublica
 import { PaginaCriarPublicacao } from "../pages/publicacoes/PaginaCriarPublicacao";
 import { getMeusDados, getProdutos } from "../api/api";
 import { existeToken } from "../helpers/jwtToken";
-import {
-  actionGetMeusDados,
-  actionLimparMeusDados,
-} from "../store/actions/meusDados/meusDados.action";
+import { actionLimparMeusDados } from "../store/actions/meusDados/meusDados.action";
 import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
 import { InfoModal } from "../components/modals/InfoModal";
-import { actionInfoModal } from "../store/actions/modal/infoModal.actions";
 import { actionLimparMeusProdutos } from "../store/actions/produtos/meusProdutos.action";
 import { actionLimparMeuProdutoSelecionado } from "../store/actions/produtos/meuProdutoSelecionado.action";
 import { actionLimparMinhasPublicacoes } from "../store/actions/publicacoes/minhasPublicacoes.action";
