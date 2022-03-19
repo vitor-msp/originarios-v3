@@ -119,7 +119,7 @@ export function FormContato() {
             type={"submit"}
             value={"Enviar"}
             className={"btn text-light mx-1"}
-            style={{ backgroundColor: "var(--corMaisEscura)" }}
+            style={{ backgroundColor: "w" }}
           />
         </Form.Group>
       </Form>

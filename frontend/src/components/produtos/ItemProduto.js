@@ -21,8 +21,8 @@ export function ItemProduto({ produto, publico }) {
     <div>
       <p>Id: {produto.id}</p>
       <p>Título: {produto.titulo}</p>
-      <p>Descrição: {produto.descricao}</p>
-      <p>Corpo: {produto.corpo} </p>
+      {/* <p>Descrição: {produto.descricao}</p> */}
+      {/* <p>Corpo: {produto.corpo} </p> */}
       <p>Valor: {produto.valor === null ? null : formatarMoeda(produto.valor)} </p>
 
       {produto.imagem1 !== null && (

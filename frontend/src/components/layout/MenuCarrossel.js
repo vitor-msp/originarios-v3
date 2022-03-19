@@ -42,7 +42,9 @@ function MenuScroll() {
       <div className="carousel" ref={carousel}>
         {produtos.map((produto) => {
           const { id, titulo, valor, imagem1 } = produto;
-          if (imagem1 !== null) {
+          if (imagem1 === null) {
+            return <div key={id}></div>;
+          } else {
             return (
               <div className="item" key={id}>
                 <NavLink
@@ -59,8 +61,6 @@ function MenuScroll() {
                 </NavLink>
               </div>
             );
-          } else {
-            return <div></div>;
           }
         })}
       </div>

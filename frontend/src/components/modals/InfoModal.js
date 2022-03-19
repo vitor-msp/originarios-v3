@@ -17,7 +17,13 @@ export function InfoModal({ conteudo }) {
     <Modal show={modalAberta} onHide={fecharModal}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <span className={primary ? "text-primary" : "text-secondary"}>
+          <span
+            style={
+              primary
+                ? { color: "var(--corPoucoEscura)" }
+                : { color: "var(--corClara)" }
+            }
+          >
             {primary ? "Sucesso" : "Erro"}
           </span>
         </Modal.Title>
@@ -31,7 +37,12 @@ export function InfoModal({ conteudo }) {
         <button
           type="button"
           onClick={fecharModal}
-          className={`btn ${primary ? "btn-primary" : "btn-secondary"}`}
+          className={"btn text-light"}
+          style={
+            primary
+              ? { backgroundColor: "var(--corPoucoEscura)" }
+              : { backgroundColor: "var(--corClara)" }
+          }
         >
           Entendi
         </button>
