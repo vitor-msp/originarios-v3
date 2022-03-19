@@ -78,12 +78,26 @@ export const postContato = (contato) => async (dispatch) => {
   return false;
 };
 
-export const postRegistro = async (registro) => {
+export const postRegistro = (registro) => async (dispatch) => {
   const res = await api
     .post(`/auth/registro`, registro)
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Cadastro realizado com sucesso!",
+        "Erro ao realizar o cadastro!",
+        "emailJaEmUso",
+        "O e-mail selecionado já está em uso!"
+      )
+    )
+  ) {
+    return true;
+  }
+  return false;
 };
 
 export const login = (autenticacao) => async (dispatch) => {
