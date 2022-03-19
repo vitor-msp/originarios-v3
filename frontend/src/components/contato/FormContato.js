@@ -1,9 +1,10 @@
 import { Form, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postContato } from "../../api/api";
 import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 
 export function FormContato() {
+  const meusDados = useSelector((state) => state.meusDados);
   const dispatch = useDispatch();
 
   const criarContato = () => {
@@ -17,27 +18,10 @@ export function FormContato() {
   };
 
   const enviarContato = async (contato) => {
-    if (validarContato(contato)) {
-      try {
-        const res = await postContato(contato);
-        if (res.status === 200) {
-          document.getElementById("cttReset").click();
-          dispatch(actionInfoModal("Contato realizado com sucesso!", true));
-        } else {
-          dispatch(actionInfoModal("Erro ao realizar o contato!", false));
-        }
-      } catch (error) {
-        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
-      }
-    } else {
-      // feedback p usuario => dados inválidos
+    const res = await dispatch(postContato(contato));
+    if (res === true) {
+      document.getElementById("cttReset").click();
     }
-  };
-
-  const validarContato = (contato) => {
-    return contato;
-    // valida campos
-    // se campos validos => return true
   };
 
   return (
@@ -59,6 +43,12 @@ export function FormContato() {
               type={"text"}
               maxLength={50}
               size={50}
+              defaultValue={
+                meusDados === null || meusDados.nome === null
+                  ? ""
+                  : meusDados.nome
+              }
+              disabled={!(meusDados === null || meusDados.nome === null)}
             />
           </Form.Group>
 
@@ -70,6 +60,12 @@ export function FormContato() {
               type={"email"}
               maxLength={30}
               size={30}
+              defaultValue={
+                meusDados === null || meusDados.email === null
+                  ? ""
+                  : meusDados.email
+              }
+              disabled={!(meusDados === null || meusDados.email === null)}
             />
           </Form.Group>
 
@@ -77,10 +73,16 @@ export function FormContato() {
             <Form.Label>Endereço:</Form.Label>
             <Form.Control
               id={"cttEnd"}
-              required={false}
               type={"text"}
               maxLength={70}
               size={70}
+              defaultValue={
+                meusDados === null
+                  ? ""
+                  : `${meusDados.cidade === null ? "" : meusDados.cidade} - ${
+                      meusDados.uf === null ? "" : meusDados.uf
+                    }`
+              }
             />
           </Form.Group>
 
@@ -106,14 +108,20 @@ export function FormContato() {
             />
           </Form.Group>
         </Row>
-        <Form.Group className="mb-3  d-flex justify-content-center">
+        <Form.Group className="mb-3 d-flex justify-content-center">
           <input
             id={"cttReset"}
             type={"reset"}
             value={"Limpar"}
-            className="btn btn-secondary"
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
           />
-          <input type={"submit"} value={"Enviar"} className="btn btn-primary" />
+          <input
+            type={"submit"}
+            value={"Enviar"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corMaisEscura)" }}
+          />
         </Form.Group>
       </Form>
     </div>

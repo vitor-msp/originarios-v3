@@ -49,13 +49,20 @@ const configToken = () => {
 };
 
 ////////////// endpoints usuário //////////////////
-export const postContato = async (contato) => {
-  const res = await api
-    .post(`/contato`, contato)
-    .then((res) => res)
-    .catch((error) => error.response);
-  return res;
-};
+export const postContato =
+  (contato) =>
+  async (dispatch) => {
+    const res = await api
+      .post(`/contato`, contato)
+      .then((res) => res)
+      .catch((error) => (error.response ? error.response : error));
+
+    if (await dispatch(tratarErro(res, "Contato realizado com sucesso!", "Erro ao realizar o contato!")))
+     {
+      return true;
+    }
+    return false;
+  };
 
 export const postRegistro = async (registro) => {
   const res = await api
