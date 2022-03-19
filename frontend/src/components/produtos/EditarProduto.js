@@ -102,7 +102,6 @@ export function EditarProduto({ novoProduto }) {
           <ImagemCrop
             imgInicial={produto === null ? null : produto.imagem1}
             imgFinal={setImg1Final}
-            required={true}
           />
           <ImagemCrop
             imgInicial={produto === null ? null : produto.imagem2}

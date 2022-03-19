@@ -4,7 +4,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import { getDadosImagem } from "../../api/api";
 
-export function ImagemCrop({ imgInicial, imgFinal, required = false }) {
+export function ImagemCrop({ imgInicial, imgFinal }) {
   const [src, setSrc] = useState(null);
   const [imagem, setImagem] = useState(null);
   const [crop, setCrop] = useState({ aspect: 1 / 1 });
@@ -109,7 +109,6 @@ export function ImagemCrop({ imgInicial, imgFinal, required = false }) {
         <Form.Label>Imagem:</Form.Label>
         <Form.Control
           type={"file"}
-          required={required}
           accept={"image/*"}
           onChange={carregarImagem}
         />

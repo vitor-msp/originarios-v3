@@ -128,38 +128,34 @@ export function FormMeusDados() {
             />
           </Form.Group>
 
-          <div className="d-flex flex-row justify-content-between">
-            <Form.Group className={`mb-2`}>
-              <Form.Label>UF:</Form.Label>
-              <Form.Control
-                id={"mdUf"}
-                type={"text"}
-                minLength={2}
-                maxLength={2}
-                size={2}
-                defaultValue={
-                  meusDados === null || meusDados.uf === null
-                    ? ""
-                    : meusDados.uf
-                }
-                disabled={!edicao}
-              />
-            </Form.Group>
+          <Form.Group className={`mb-2 col-4`}>
+            <Form.Label>UF:</Form.Label>
+            <Form.Control
+              id={"mdUf"}
+              type={"text"}
+              minLength={2}
+              maxLength={2}
+              size={2}
+              defaultValue={
+                meusDados === null || meusDados.uf === null ? "" : meusDados.uf
+              }
+              disabled={!edicao}
+            />
+          </Form.Group>
 
-            <Form.Group className={`mb-2`}>
-              <Form.Label>Data de nascimento:</Form.Label>
-              <Form.Control
-                id={"mdDtNasc"}
-                type={"date"}
-                defaultValue={
-                  meusDados === null || meusDados.dataNascimento === null
-                    ? ""
-                    : meusDados.dataNascimento.substring(0, 10)
-                }
-                disabled={!edicao}
-              />
-            </Form.Group>
-          </div>
+          <Form.Group className={`mb-2 col-8`}>
+            <Form.Label>Data nascimento:</Form.Label>
+            <Form.Control
+              id={"mdDtNasc"}
+              type={"date"}
+              defaultValue={
+                meusDados === null || meusDados.dataNascimento === null
+                  ? ""
+                  : meusDados.dataNascimento.substring(0, 10)
+              }
+              disabled={!edicao}
+            />
+          </Form.Group>
 
           <Form.Group className={`mb-2`}>
             <Form.Label>Tribo:</Form.Label>
@@ -178,39 +174,37 @@ export function FormMeusDados() {
             />
           </Form.Group>
 
-          <div className="d-flex flex-row justify-content-between">
-            <Form.Group className={`mb-2`}>
-              <Form.Label>DDD:</Form.Label>
-              <Form.Control
-                required
-                type={"text"}
-                minLength={2}
-                maxLength={2}
-                size={2}
-                value={ddd}
-                onChange={(event) => {
-                  setDdd(event.target.value.replace(/\D/gim, ""));
-                }}
-                disabled={!edicao}
-              />
-            </Form.Group>
+          <Form.Group className={`mb-2 col-4`}>
+            <Form.Label>DDD:</Form.Label>
+            <Form.Control
+              required
+              type={"text"}
+              minLength={2}
+              maxLength={2}
+              size={2}
+              value={ddd}
+              onChange={(event) => {
+                setDdd(event.target.value.replace(/\D/gim, ""));
+              }}
+              disabled={!edicao}
+            />
+          </Form.Group>
 
-            <Form.Group className={`mb-2`}>
-              <Form.Label>Telefone:</Form.Label>
-              <Form.Control
-                required
-                type={"tel"}
-                minLength={8}
-                maxLength={10}
-                size={10}
-                value={tel}
-                onChange={(event) => {
-                  setTel(event.target.value.replace(/\D/gim, ""));
-                }}
-                disabled={!edicao}
-              />
-            </Form.Group>
-          </div>
+          <Form.Group className={`mb-2 col-8`}>
+            <Form.Label>Telefone:</Form.Label>
+            <Form.Control
+              required
+              type={"tel"}
+              minLength={8}
+              maxLength={10}
+              size={10}
+              value={tel}
+              onChange={(event) => {
+                setTel(event.target.value.replace(/\D/gim, ""));
+              }}
+              disabled={!edicao}
+            />
+          </Form.Group>
 
           <Form.Group className={`mb-2`}>
             <Form.Label>E-mail:</Form.Label>
