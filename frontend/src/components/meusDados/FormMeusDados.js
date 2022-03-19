@@ -1,58 +1,45 @@
+import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { putMeusDados } from "../../api/api";
-import { actionPutMeusDados } from "../../store/actions/meusDados/meusDados.action";
-import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 import { FormMinhaSenha } from "./FormMinhaSenha";
 
 export function FormMeusDados() {
   const meusDados = useSelector((state) => state.meusDados);
+  const [edicao, setEdicao] = useState(false);
+  const [cpf, setCpf] = useState(
+    meusDados === null || meusDados.cpf === null ? "" : meusDados.cpf
+  );
+  const [ddd, setDdd] = useState(
+    meusDados === null || meusDados.ddd === null ? "" : meusDados.ddd
+  );
+  const [tel, setTel] = useState(
+    meusDados === null || meusDados.telefone === null ? "" : meusDados.telefone
+  );
   const dispatch = useDispatch();
 
   const criarMeusDados = () => {
     return {
       nome: document.getElementById("mdNome").value,
-      cpf: document.getElementById("mdCpf").value,
+      cpf: cpf,
       dataNascimento: document.getElementById("mdDtNasc").value,
       assinatura: document.getElementById("mdAss").value,
       cidade: document.getElementById("mdCid").value,
       uf: document.getElementById("mdUf").value,
       tribo: document.getElementById("mdTribo").value,
-      ddd: document.getElementById("mdDdd").value,
-      telefone: document.getElementById("mdTel").value,
-      email: document.getElementById("mdEmail").value,
+      ddd: ddd,
+      telefone: tel,
+      email: meusDados.email,
       senha: document.getElementById("mdSenha").value,
     };
   };
 
   const enviarMeusDados = async (usuario) => {
-    if (validarMeusDados(usuario)) {
-      try {
-        const res = await putMeusDados(usuario);
-        if (res.status === 200) {
-          delete usuario.senha;
-          dispatch(actionPutMeusDados(usuario));
-          dispatch(actionInfoModal("Dados salvos com sucesso!", true));
-        } else if (
-          res.status === 400 &&
-          res.data.mensagem.trim() === "senhaIncorreta"
-        ) {
-          dispatch(actionInfoModal("Senha incorreta!", false));
-        } else {
-          dispatch(actionInfoModal("Erro ao salvar os dados!", false));
-        }
-      } catch (error) {
-        dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
-      }
-    } else {
-      // feedback p usuario => dados inválidos
+    const res = await dispatch(putMeusDados(usuario));
+    if (res === true) {
+      setEdicao(false);
     }
-  };
-
-  const validarMeusDados = (usuario) => {
-    return true;
-    // valida campos
-    // se campos validos => return true
   };
 
   return (
@@ -79,41 +66,36 @@ export function FormMeusDados() {
                   ? ""
                   : meusDados.nome
               }
+              disabled={!edicao}
             />
           </Form.Group>
 
           <Form.Group className={`mb-2`}>
             <Form.Label>Cpf:</Form.Label>
             <Form.Control
-              id={"mdCpf"}
               required
               type={"text"}
               minLength={11}
               maxLength={11}
               size={11}
-              defaultValue={
-                meusDados === null || meusDados.cpf === null
-                  ? ""
-                  : meusDados.cpf
-              }
+              value={cpf}
+              onChange={(event) => {
+                setCpf(event.target.value.replace(/\D/gim, ""));
+              }}
+              disabled={!edicao}
             />
           </Form.Group>
 
           <Form.Group className={`mb-2`}>
-            <Form.Label>Data de nascimento:</Form.Label>
-            <Form.Control
-              id={"mdDtNasc"}
-              type={"date"}
-              defaultValue={
-                meusDados === null || meusDados.dataNascimento === null
-                  ? ""
-                  : meusDados.dataNascimento
+            <Form.Label>
+              Assinatura{" "}
+              {
+                <span style={{ fontSize: "0.8rem" }}>
+                  (é sua identificação nas publicações)
+                </span>
               }
-            />
-          </Form.Group>
-
-          <Form.Group className={`mb-2`}>
-            <Form.Label>Assinatura:</Form.Label>
+              :
+            </Form.Label>
             <Form.Control
               id={"mdAss"}
               required
@@ -125,6 +107,7 @@ export function FormMeusDados() {
                   ? ""
                   : meusDados.assinatura
               }
+              disabled={!edicao}
             />
           </Form.Group>
 
@@ -132,7 +115,6 @@ export function FormMeusDados() {
             <Form.Label>Cidade:</Form.Label>
             <Form.Control
               id={"mdCid"}
-              required={false}
               type={"text"}
               maxLength={30}
               size={30}
@@ -141,22 +123,42 @@ export function FormMeusDados() {
                   ? ""
                   : meusDados.cidade
               }
+              disabled={!edicao}
             />
           </Form.Group>
 
-          <Form.Group className={`mb-2`}>
-            <Form.Label>UF:</Form.Label>
-            <Form.Control
-              id={"mdUf"}
-              required={false}
-              type={"text"}
-              maxLength={2}
-              size={2}
-              defaultValue={
-                meusDados === null || meusDados.uf === null ? "" : meusDados.uf
-              }
-            />
-          </Form.Group>
+          <div className="d-flex flex-row justify-content-between">
+            <Form.Group className={`mb-2`}>
+              <Form.Label>UF:</Form.Label>
+              <Form.Control
+                id={"mdUf"}
+                type={"text"}
+                minLength={2}
+                maxLength={2}
+                size={2}
+                defaultValue={
+                  meusDados === null || meusDados.uf === null
+                    ? ""
+                    : meusDados.uf
+                }
+                disabled={!edicao}
+              />
+            </Form.Group>
+
+            <Form.Group className={`mb-2`}>
+              <Form.Label>Data de nascimento:</Form.Label>
+              <Form.Control
+                id={"mdDtNasc"}
+                type={"date"}
+                defaultValue={
+                  meusDados === null || meusDados.dataNascimento === null
+                    ? ""
+                    : meusDados.dataNascimento.substring(0, 10)
+                }
+                disabled={!edicao}
+              />
+            </Form.Group>
+          </div>
 
           <Form.Group className={`mb-2`}>
             <Form.Label>Tribo:</Form.Label>
@@ -171,40 +173,43 @@ export function FormMeusDados() {
                   ? ""
                   : meusDados.tribo
               }
+              disabled={!edicao}
             />
           </Form.Group>
 
-          <Form.Group className={`mb-2`}>
-            <Form.Label>DDD:</Form.Label>
-            <Form.Control
-              id={"mdDdd"}
-              required
-              type={"text"}
-              maxLength={2}
-              size={2}
-              defaultValue={
-                meusDados === null || meusDados.ddd === null
-                  ? ""
-                  : meusDados.ddd
-              }
-            />
-          </Form.Group>
+          <div className="d-flex flex-row justify-content-between">
+            <Form.Group className={`mb-2`}>
+              <Form.Label>DDD:</Form.Label>
+              <Form.Control
+                required
+                type={"text"}
+                minLength={2}
+                maxLength={2}
+                size={2}
+                value={ddd}
+                onChange={(event) => {
+                  setDdd(event.target.value.replace(/\D/gim, ""));
+                }}
+                disabled={!edicao}
+              />
+            </Form.Group>
 
-          <Form.Group className={`mb-2`}>
-            <Form.Label>Telefone:</Form.Label>
-            <Form.Control
-              id={"mdTel"}
-              required
-              type={"text"}
-              maxLength={10}
-              size={10}
-              defaultValue={
-                meusDados === null || meusDados.telefone === null
-                  ? ""
-                  : meusDados.telefone
-              }
-            />
-          </Form.Group>
+            <Form.Group className={`mb-2`}>
+              <Form.Label>Telefone:</Form.Label>
+              <Form.Control
+                required
+                type={"tel"}
+                minLength={8}
+                maxLength={10}
+                size={10}
+                value={tel}
+                onChange={(event) => {
+                  setTel(event.target.value.replace(/\D/gim, ""));
+                }}
+                disabled={!edicao}
+              />
+            </Form.Group>
+          </div>
 
           <Form.Group className={`mb-2`}>
             <Form.Label>E-mail:</Form.Label>
@@ -212,8 +217,6 @@ export function FormMeusDados() {
               id={"mdEmail"}
               required
               type={"email"}
-              maxLength={30}
-              size={30}
               value={
                 meusDados === null || meusDados.email === null
                   ? ""
@@ -224,41 +227,60 @@ export function FormMeusDados() {
             />
           </Form.Group>
 
-          <Form.Group className={`mb-2`}>
-            <Form.Label>Senha:</Form.Label>
-            <Form.Control
-              id={"mdSenha"}
-              required
-              type={"password"}
-              maxLength={100}
-              size={100}
-            />
-          </Form.Group>
-
-          <Form.Group className={`mb-2`}>
-            <Form.Label>Confirmação da Senha:</Form.Label>
-            <Form.Control
-              id={"mdConfSenha"}
-              required
-              type={"password"}
-              maxLength={100}
-              size={100}
-            />
-          </Form.Group>
+          {edicao && (
+            <Form.Group className={`mb-2`}>
+              <Form.Label>Senha para validação:</Form.Label>
+              <Form.Control
+                id={"mdSenha"}
+                required
+                type={"password"}
+                maxLength={100}
+                size={100}
+              />
+            </Form.Group>
+          )}
         </Row>
+
         <Form.Group className="mb-3  d-flex justify-content-center">
-          <input
-            type={"reset"}
-            value={"Limpar"}
-            className="btn btn-secondary"
-          />
-          <input type={"submit"} value={"Salvar"} className="btn btn-primary" />
+          {edicao ? (
+            <>
+              <button
+                type={"button"}
+                onClick={() => setEdicao(false)}
+                className={"btn text-light mx-1"}
+                style={{ backgroundColor: "var(--corClara)" }}
+              >
+                Cancelar
+              </button>
+              <input
+                type={"submit"}
+                value={"Salvar"}
+                className={"btn text-light mx-1"}
+                style={{ backgroundColor: "var(--corMaisEscura)" }}
+              />
+            </>
+          ) : (
+            <>
+              <NavLink
+                to={"/"}
+                className={"btn text-light mx-1"}
+                style={{ backgroundColor: "var(--corClara)" }}
+              >
+                Voltar
+              </NavLink>
+              <button
+                type={"button"}
+                onClick={() => setEdicao(true)}
+                className={"btn text-light mx-1"}
+                style={{ backgroundColor: "var(--corMaisEscura)" }}
+              >
+                Editar
+              </button>
+            </>
+          )}
         </Form.Group>
       </Form>
-      {/* pensei em o formulário começar com os campos desabilitados para edição */}
-      {/* quando o usuário clicar em "editar", os campos ficarem habilitados para edição */}
-      {/* clique em salvar => salvarMeusDados(dados do formulário) */}
-      {/* clique em salvar => salvarMinhaSenha(dados do formulário) */}
+
       <FormMinhaSenha />
     </div>
   );

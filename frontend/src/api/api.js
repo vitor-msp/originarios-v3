@@ -16,6 +16,10 @@ import {
 } from "../store/actions/produtos/meusProdutos.action";
 import { actionPaginacao } from "../store/actions/paginacao/paginacao.action";
 import { actionLogin } from "../store/actions/meusDados/estaLogado.action";
+import {
+  actionGetMeusDados,
+  actionPutMeusDados,
+} from "../store/actions/meusDados/meusDados.action";
 
 export const url = `https://originarios.herokuapp.com`;
 const msgErroServ = "Erro na comunicação com o servidor!";
@@ -123,24 +127,45 @@ export const login = (autenticacao) => async (dispatch) => {
   return false;
 };
 
-export const getMeusDados = async () => {
+export const getMeusDados = () => async (dispatch) => {
   const res = await api
     .get(`/usuario`, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (await dispatch(tratarErro(res, null, "Erro ao trazer seus dados!"))) {
+    dispatch(actionGetMeusDados(res.data));
+    return true;
+  }
+  return false;
 };
 
-export const putMeusDados = async (usuario) => {
+export const putMeusDados = (usuario) => async (dispatch) => {
   const res = await api
     .put(`/usuario`, usuario, {
       headers: configToken(),
     })
     .then((res) => res)
-    .catch((error) => error.response);
-  return res;
+    .catch((error) => (error.response ? error.response : error));
+
+  if (
+    await dispatch(
+      tratarErro(
+        res,
+        "Dados salvos com sucesso!",
+        "Erro ao salvar os dados!",
+        "senhaIncorreta",
+        "Senha incorreta!"
+      )
+    )
+  ) {
+    delete usuario.senha;
+    dispatch(actionPutMeusDados(usuario));
+    return true;
+  }
+  return false;
 };
 
 export const putMinhaSenha = async (senhas) => {

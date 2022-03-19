@@ -76,7 +76,7 @@ export function FormRegistro() {
             <Form.Label>Cpf:</Form.Label>
             <Form.Control
               required
-              type={"cpf"}
+              type={"text"}
               minLength={11}
               maxLength={11}
               size={11}
@@ -119,7 +119,13 @@ export function FormRegistro() {
           <div className="d-flex flex-row justify-content-between">
             <Form.Group className={`mb-2`}>
               <Form.Label>UF:</Form.Label>
-              <Form.Control id={"regUf"} type={"text"} maxLength={2} size={2} />
+              <Form.Control
+                id={"regUf"}
+                type={"text"}
+                minLength={2}
+                maxLength={2}
+                size={2}
+              />
             </Form.Group>
 
             <Form.Group className={`mb-2`}>

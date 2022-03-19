@@ -44,22 +44,9 @@ function App() {
   const produtos = useSelector((state) => state.produtos);
   const dispatch = useDispatch();
 
-  const reqMeusDados = async () => {
-    try {
-      const res = await getMeusDados();
-      if (res.status === 200) {
-        dispatch(actionGetMeusDados(res.data));
-      } else {
-        dispatch(actionInfoModal("Erro ao trazer seus dados!", false));
-      }
-    } catch (error) {
-      dispatch(actionInfoModal("Erro na comunicação com o servidor!", false));
-    }
-  };
-
   useEffect(() => {
     if (estaLogado && meusDados === null) {
-      reqMeusDados();
+      dispatch(getMeusDados());
     } else if (!estaLogado && meusDados !== null) {
       dispatch(actionLimparMeusDados());
       dispatch(actionLimparMeusProdutos());
@@ -74,7 +61,7 @@ function App() {
       dispatch(actionLogin());
     }
     (async () => {
-      if(produtos.length === 0) dispatch(getProdutos());
+      if (produtos.length === 0) dispatch(getProdutos());
     })();
   }, []);
 
