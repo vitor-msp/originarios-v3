@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { ItemPublicacao } from "./ItemPublicacao";
 import { getPublicacoes, getMinhasPublicacoes } from "../../api/api";
+import { BtnNaveg } from "../paginacao/BtnNaveg";
 
 export function ListaPublicacoes({ publico }) {
   const minhasPublicacoes = useSelector((state) => state.minhasPublicacoes);
@@ -25,14 +26,19 @@ export function ListaPublicacoes({ publico }) {
   }, []);
 
   return (
-    <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center p-0">
-      {publicacoes.map((publicacao) => (
-        <ItemPublicacao
-          key={publicacao.id}
-          publicacao={publicacao}
-          publico={publico}
-        />
-      ))}
-    </div>
+    <>
+      <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center p-0">
+        {publicacoes.map((publicacao) => (
+          <ItemPublicacao
+            key={publicacao.id}
+            publicacao={publicacao}
+            publico={publico}
+          />
+        ))}
+      </div>
+      <BtnNaveg
+        nomePagina={publico ? "pgPublicacoes" : "inMinhasPublicacoes"}
+      />
+    </>
   );
 }

@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ItemProduto } from "./ItemProduto";
-import { getMeusProdutos, getProdutos } from "../../api/api";
+import { getMeusProdutos } from "../../api/api";
+import { BtnNaveg } from "../paginacao/BtnNaveg";
 
 export function ListaProdutos({ publico }) {
   const meusProdutos = useSelector((state) => state.meusProdutos);
@@ -19,10 +20,13 @@ export function ListaProdutos({ publico }) {
   }, []);
 
   return (
-    <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center p-0">
-      {produtos.map((produto) => (
-        <ItemProduto key={produto.id} produto={produto} publico={publico} />
-      ))}
-    </div>
+    <>
+      <div className="col-12 d-flex flex-row flex-wrap justify-content-around align-content-center p-0">
+        {produtos.map((produto) => (
+          <ItemProduto key={produto.id} produto={produto} publico={publico} />
+        ))}
+      </div>
+      <BtnNaveg nomePagina={publico ? "pgProdutos" : "inMeusProdutos"} />
+    </>
   );
 }

@@ -16,6 +16,7 @@ import { meusDadosReducer } from "./reducers/meusDados/meusDados.reducer";
 import { estaLogadoReducer } from "./reducers/meusDados/estaLogado.reducer";
 
 import { infoModalReducer } from "./reducers/modal/infoModal.reducer";
+import { paginacaoReducer } from "./reducers/paginacao/paginacao.reducer";
 
 const reducers = combineReducers({
   produtos: produtosReducer,
@@ -32,6 +33,7 @@ const reducers = combineReducers({
   estaLogado: estaLogadoReducer,
 
   infoModal: infoModalReducer,
+  paginacao: paginacaoReducer,
 });
 
 const middleware = [thunk];

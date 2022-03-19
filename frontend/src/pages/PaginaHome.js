@@ -169,29 +169,24 @@ export function PaginaHome() {
             <br />
             <h1 style={{ textAlign: "center" }}>Quem somos?</h1>
             <br />
-            <p className="text-center">
-              <h4 className="text-center">
-                A plataforma Originários foi desenvolvida durante a Recode Pro
-                2021. Como projeto final, os alunos do Squad 41 escolheram o
-                tema Indígenas e criaram está plataforma, que tem o objetivo de
-                trazer mais visibilidade aos produtores indígenas e divulgar a
-                riqueza de sua cultura.
-              </h4>
-            </p>
+            <h4 className="text-center">
+              A plataforma Originários foi desenvolvida durante a Recode Pro
+              2021. Como projeto final, os alunos do Squad 41 escolheram o tema
+              Indígenas e criaram está plataforma, que tem o objetivo de trazer
+              mais visibilidade aos produtores indígenas e divulgar a riqueza de
+              sua cultura.
+            </h4>
             <br />
             <h1 style={{ textAlign: "center" }}>O que fazemos?</h1>
 
             <br />
-            <p className="text-center">
-              <h4 className="text-center">
-                A Originários promove o contato entre os habitantes dos centros
-                urbanos e a sofisticada arte dos povos da floresta. Através de
-                uma curadoria apurada, mostramos quão contemporâneas e atuais
-                são as manifestações estéticas destes povos, sempre
-                fundamentadas por saberes ancestrais transmitidos há várias
-                gerações.
-              </h4>
-            </p>
+            <h4 className="text-center">
+              A Originários promove o contato entre os habitantes dos centros
+              urbanos e a sofisticada arte dos povos da floresta. Através de uma
+              curadoria apurada, mostramos quão contemporâneas e atuais são as
+              manifestações estéticas destes povos, sempre fundamentadas por
+              saberes ancestrais transmitidos há várias gerações.
+            </h4>
             <br />
             <br />
             <img
@@ -287,7 +282,7 @@ export function PaginaHome() {
                       d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                     ></path>
                   </svg>
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>
@@ -353,7 +348,7 @@ export function PaginaHome() {
                       d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                     ></path>
                   </svg>
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>
@@ -419,7 +414,7 @@ export function PaginaHome() {
                       d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                     ></path>
                   </svg>
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>
@@ -485,7 +480,7 @@ export function PaginaHome() {
                       d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                     ></path>
                   </svg>
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>
@@ -551,7 +546,7 @@ export function PaginaHome() {
                       d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                     ></path>
                   </svg>
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>
@@ -617,7 +612,7 @@ export function PaginaHome() {
                       d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
                     ></path>
                   </svg>
-                  <i class="fab fa-linkedin-in"></i>
+                  <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>

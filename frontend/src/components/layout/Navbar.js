@@ -14,7 +14,7 @@ export function Navbar() {
 
   return (
     <nav
-      class="navbar navbar-expand-lg navbar-light"
+      className="navbar navbar-expand-lg navbar-light"
       styled="background-color: #e3f2fd;"
     >
       {/* <nav className="row pr-2 mr-5 bg-transparent"> */}

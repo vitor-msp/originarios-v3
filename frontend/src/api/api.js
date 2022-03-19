@@ -14,6 +14,7 @@ import {
   actionPostProduto,
   actionPutProduto,
 } from "../store/actions/produtos/meusProdutos.action";
+import { actionPaginacao } from "../store/actions/paginacao/paginacao.action";
 
 export const url = `https://originarios.herokuapp.com`;
 const msgErroServ = "Erro na comunicação com o servidor!";
@@ -103,41 +104,55 @@ export const putMinhaSenha = async (senhas) => {
 };
 
 ////////////////// produtos //////////////////
-export const getProdutos = () => async (dispatch) => {
-  const res = await api
-    .get(`/produtos`)
-    .then((res) => {
-      res.data = res.data.map(({ produto, usuarioResponse }) => {
-        return {
-          ...produto,
-          usuario: { ...usuarioResponse },
-        };
-      });
-      return res;
-    })
-    .catch((error) => (error.response ? error.response : error));
+export const getProdutos =
+  (pagina = 0, qtd = 10) =>
+  async (dispatch) => {
+    const res = await api
+      .get(`/produtos?pagina=${pagina}&qtd=${qtd}`)
+      .then((res) => {
+        res.data = res.data.map(({ produto, usuarioResponse }) => {
+          return {
+            ...produto,
+            usuario: { ...usuarioResponse },
+          };
+        });
+        return res;
+      })
+      .catch((error) => (error.response ? error.response : error));
 
-  if (await dispatch(tratarErro(res, null, "Erro ao trazer os produtos!"))) {
-    dispatch(actionGetProdutos(res.data));
-    return true;
-  }
-  return false;
-};
+    if (await dispatch(tratarErro(res, null, "Erro ao trazer os produtos!"))) {
+      if (res.data.length === 0) {
+        dispatch(actionInfoModal("Sem novos dados!", false));
+      } else {
+        dispatch(actionGetProdutos(res.data));
+        dispatch(actionPaginacao("pgProdutos", pagina));
+        return true;
+      }
+    }
+    return false;
+  };
 
-export const getMeusProdutos = () => async (dispatch) => {
-  const res = await api
-    .get(`/meus-produtos`, {
-      headers: configToken(),
-    })
-    .then((res) => res)
-    .catch((error) => (error.response ? error.response : error));
+export const getMeusProdutos =
+  (inicio = 0, qtd = 10) =>
+  async (dispatch) => {
+    const res = await api
+      .get(`/meus-produtos?inicio=${inicio}&qtd=${qtd}`, {
+        headers: configToken(),
+      })
+      .then((res) => res)
+      .catch((error) => (error.response ? error.response : error));
 
-  if (await dispatch(tratarErro(res, null, "Erro ao trazer os produtos!"))) {
-    dispatch(actionGetMeusProdutos(res.data));
-    return true;
-  }
-  return false;
-};
+    if (await dispatch(tratarErro(res, null, "Erro ao trazer os produtos!"))) {
+      if (res.data.length === 0) {
+        dispatch(actionInfoModal("Sem novos dados!", false));
+      } else {
+        dispatch(actionGetMeusProdutos(res.data));
+        dispatch(actionPaginacao("inMeusProdutos", inicio));
+        return true;
+      }
+    }
+    return false;
+  };
 
 export const postProduto = (produto) => async (dispatch) => {
   const res = await api
@@ -215,41 +230,59 @@ export const getDadosImagem = async (id) => {
 };
 
 ////////////////// publicacoes //////////////////
-export const getPublicacoes = () => async (dispatch) => {
-  const res = await api
-    .get(`/publicacoes`)
-    .then((res) => {
-      res.data = res.data.map(({ publicacao, usuarioResponse }) => {
-        return {
-          ...publicacao,
-          usuario: { ...usuarioResponse },
-        };
-      });
-      return res;
-    })
-    .catch((error) => (error.response ? error.response : error));
+export const getPublicacoes =
+  (pagina = 0, qtd = 10) =>
+  async (dispatch) => {
+    const res = await api
+      .get(`/publicacoes?pagina=${pagina}&qtd=${qtd}`)
+      .then((res) => {
+        res.data = res.data.map(({ publicacao, usuarioResponse }) => {
+          return {
+            ...publicacao,
+            usuario: { ...usuarioResponse },
+          };
+        });
+        return res;
+      })
+      .catch((error) => (error.response ? error.response : error));
 
-  if (await dispatch(tratarErro(res, null, "Erro ao trazer as publicações!"))) {
-    dispatch(actionGetPublicacoes(res.data));
-    return true;
-  }
-  return false;
-};
+    if (
+      await dispatch(tratarErro(res, null, "Erro ao trazer as publicações!"))
+    ) {
+      if (res.data.length === 0) {
+        dispatch(actionInfoModal("Sem novos dados!", false));
+      } else {
+        dispatch(actionGetPublicacoes(res.data));
+        dispatch(actionPaginacao("pgPublicacoes", pagina));
+        return true;
+      }
+    }
+    return false;
+  };
 
-export const getMinhasPublicacoes = () => async (dispatch) => {
-  const res = await api
-    .get(`/minhas-publicacoes`, {
-      headers: configToken(),
-    })
-    .then((res) => res)
-    .catch((error) => (error.response ? error.response : error));
+export const getMinhasPublicacoes =
+  (inicio = 0, qtd = 10) =>
+  async (dispatch) => {
+    const res = await api
+      .get(`/minhas-publicacoes?inicio=${inicio}&qtd=${qtd}`, {
+        headers: configToken(),
+      })
+      .then((res) => res)
+      .catch((error) => (error.response ? error.response : error));
 
-  if (await dispatch(tratarErro(res, null, "Erro ao trazer as publicações!"))) {
-    dispatch(actionGetMinhasPublicacoes(res.data));
-    return true;
-  }
-  return false;
-};
+    if (
+      await dispatch(tratarErro(res, null, "Erro ao trazer as publicações!"))
+    ) {
+      if (res.data.length === 0) {
+        dispatch(actionInfoModal("Sem novos dados!", false));
+      } else {
+        dispatch(actionGetMinhasPublicacoes(res.data));
+        dispatch(actionPaginacao("inMinhasPublicacoes", inicio));
+        return true;
+      }
+    }
+    return false;
+  };
 
 export const postPublicacao = (publicacao) => async (dispatch) => {
   const res = await api
@@ -259,7 +292,7 @@ export const postPublicacao = (publicacao) => async (dispatch) => {
     .then((res) => res)
     .catch((error) => (error.response ? error.response : error));
 
-    if (
+  if (
     await dispatch(
       tratarErro(
         res,
