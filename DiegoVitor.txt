@@ -1,6 +1,0 @@
-ARQUIVOS QUE PODEM SER EDITADOS - Diego e Vitor
-
-/frontend/src/components/contato/** (tudo dentro da pasta)
-/frontend/src/components/login/** (tudo dentro da pasta)
-/frontend/src/components/meusDados/** (tudo dentro da pasta)
-/frontend/src/components/registro/** (tudo dentro da pasta)
