@@ -51,7 +51,7 @@ export function ItemPublicacao({ publicacao, publico }) {
                 className={"btn text-light mx-1"}
                 style={{ backgroundColor: "var(--corClara)" }}
               >
-                Ver na íntegra
+                Selecionar
               </NavLink>
             </div>
           </div>
@@ -72,7 +72,7 @@ export function ItemPublicacao({ publicacao, publico }) {
             className={"btn text-light mx-1"}
             style={{ backgroundColor: "var(--corClara)" }}
           >
-            Ver na íntegra
+            Selecionar
           </NavLink>
         </div>
       )}
