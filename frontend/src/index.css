@@ -57,6 +57,11 @@ nav .col-3 a:hover {
 .logo {
   filter: invert(1);
 }
+
+.collapse{
+
+  position: relative;
+}
 /*************************** fim navbar ***************************/
 
 .estiloBorder {
@@ -128,6 +133,7 @@ nav .col-3 a:hover {
   font-size: 1.2rem;
   font-weight: bold;
   background-color: var(--corMaisouMenosClara);
+  text-align: center;
 }
 /*************************** fim Produtos ***************************/
 

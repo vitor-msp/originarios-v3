@@ -30,7 +30,7 @@ function MenuScroll() {
       <h3 className=" text-white">
         Conheça alguns dos produtos indígenas que são style{" "}
       </h3>
-      <div className="buttons ">
+      <div className="buttons d-flex justify-content-end">
         <button onClick={handleLeftClick}>
           <img src={rightarrow} alt="Scroll Left" />
         </button>
@@ -39,7 +39,7 @@ function MenuScroll() {
         </button>
       </div>
 
-      <div className="carousel" ref={carousel}>
+      <div className="carousel text-center" ref={carousel}>
         {produtos.map((produto) => {
           const { id, titulo, valor, imagem1 } = produto;
           if (imagem1 === null) {
@@ -52,10 +52,16 @@ function MenuScroll() {
                   onClick={() => dispatch(actionProdutoSelecionado(produto))}
                 >
                   <img src={getImagem(imagem1.id)} alt={imagem1.nome} />
-                  <span className="price shadow">
-                    <div className="d-flex text-center">
-                      {valor !== null && <span>{formatarMoeda(valor)}</span>}
-                      {titulo !== null && <span>{titulo}</span>}
+                  <span className="price shadow text-center">
+                    <div className="text-center " style={{ lineHeight: "3px" }}>
+                      {valor !== null && (
+                        <strong>
+                          <span className="d-block  text-danger ">
+                            {formatarMoeda(valor)}
+                          </span>
+                        </strong>
+                      )}
+                      {titulo !== null && <span className="">{titulo}</span>}
                     </div>
                   </span>
                 </NavLink>

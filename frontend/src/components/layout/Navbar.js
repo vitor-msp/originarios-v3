@@ -1,10 +1,10 @@
 import React from "react";
+import "animate.css";
 import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionLogout } from "../../store/actions/meusDados/estaLogado.action";
 import { actionInfoModal } from "../../store/actions/modal/infoModal.actions";
 import logo from "../../pages/img/originarios-cortado.png";
-import "animate.css";
 
 export function Navbar() {
   const estaLogado = useSelector((state) => state.estaLogado);
@@ -19,22 +19,21 @@ export function Navbar() {
       className="navbar navbar-expand-lg navbar-light"
       styled="background-color: #e3f2fd;"
     >
-      {/* <nav className="row pr-2 mr-5 bg-transparent"> */}
       <div
         id="nav"
-        className="col-8 navbar navbar-expand-lg navbar-dark animate__animated animate__backInDown animate__delay-0.5s"
+        className="col-12 col-sm-8 navbar navbar-expand-lg navbar-dark animate__animated animate__backInDown animate__delay-0.5s"
       >
         <div className="container-fluid justify-content-start px-0">
           <button
-            className="navbar-toggler my-2 my-lg-0 bg-transparent"
+            className="navbar-toggler my-2 ms-4 my-lg-0 bg-transparent"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navToggler"
             aria-controls="navToggler"
             aria-expanded="false"
-            aria-label="Menu de navegação"
+            aria-label="Menu de navegação "
           >
-            <span className="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon "></span>
           </button>
 
           <Link to={"/"} className="navbar-brand mx-2 mx-lg-4">
@@ -42,8 +41,8 @@ export function Navbar() {
             Originarios{" "}
           </Link>
 
-          <div className="collapse navbar-collapse" id="navToggler">
-            <ul className="navbar-nav me-auto mb-lg-0">
+          <div className="collapse navbar-collapse ms-4" id="navToggler">
+            <ul className="navbar-nav me-auto mb-lg-0 ">
               <li className="nav-item">
                 <NavLink to={"/"} className={"nav-link text-light"}>
                   Home
