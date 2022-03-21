@@ -211,6 +211,11 @@ export function FormRegistro() {
           <input
             id={"regReset"}
             type={"reset"}
+            onClick={() => {
+              setCpf("");
+              setDdd("");
+              setTel("");
+            }}
             value={"Limpar"}
             className={"btn text-light mx-1"}
             style={{ backgroundColor: "var(--corClara)" }}
