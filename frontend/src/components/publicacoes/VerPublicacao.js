@@ -33,34 +33,56 @@ export function VerPublicacao({ publico }) {
 
   return (
     <div>
-      <p>Id: {publicacao.id}</p>
-      <p>Título: {publicacao.titulo}</p>
-      <p>Corpo: {publicacao.corpo}</p>
-      <p>Data: {publicacao.data === null ? null : formatarData(publicacao.data)}</p>
+      <h1>{publicacao.titulo}</h1>
+      <br />
+      {publicacao.corpo.split("\n").map((par) => {
+        return (
+          <h5
+            key={Math.random()}
+            style={{ textIndent: 50, textAlign: "justify" }}
+          >
+            {par}
+          </h5>
+        );
+      })}
+      <br />
+      <h5>
+        Data: {publicacao.data === null ? null : formatarData(publicacao.data)}
+      </h5>
+      <br />
       {publico && (
         <>
-          <p>Usuário tribo: {publicacao.usuario.tribo} </p>
-          <p>Usuário assinatura: {publicacao.usuario.assinatura} </p>
+          <h5>Autor(a): {publicacao.usuario.assinatura}</h5>
+          <h5>Tribo/Etnia: {publicacao.usuario.tribo}</h5>
+          <br />
         </>
       )}
-      {/* <p>Usuário: {publicacao.usuario} </p> */}
 
       {publico ? (
         <div>
           <NavLink
             to={"/Publicacoes"}
-            onClick={publicacaoSelecionada}
-            className={"text-light"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
           >
             Voltar
           </NavLink>
         </div>
       ) : (
         <div>
+          <NavLink
+            to={"/MinhasPublicacoes"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
+          >
+            Voltar
+          </NavLink>
+
           <button
             type={"button"}
             onClick={editarPublicacao}
-            className={"btn btn-success"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
           >
             Editar
           </button>
@@ -68,7 +90,8 @@ export function VerPublicacao({ publico }) {
           <button
             type={"button"}
             onClick={deletarPublicacao}
-            className={"btn btn-danger"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corMaisEscura)" }}
           >
             Excluir
           </button>
@@ -77,3 +100,27 @@ export function VerPublicacao({ publico }) {
     </div>
   );
 }
+
+// <div>
+//   <p>Id: {publicacao.id}</p>
+//   <p>Título: {publicacao.titulo}</p>
+//   <p>Corpo: {publicacao.corpo}</p>
+//   <p>Data: {publicacao.data === null ? null : formatarData(publicacao.data)}</p>
+//   {publico && (
+//     <>
+//       <p>Usuário tribo: {publicacao.usuario.tribo} </p>
+//       <p>Usuário assinatura: {publicacao.usuario.assinatura} </p>
+//     </>
+//   )}
+//   {/* <p>Usuário: {publicacao.usuario} </p> */}
+
+//   {publico ? (
+//     <div>
+//       <NavLink
+//         to={"/Publicacoes"}
+//         onClick={publicacaoSelecionada}
+//         className={"text-light"}
+//       >
+//         Voltar
+//       </NavLink>
+//     </div>

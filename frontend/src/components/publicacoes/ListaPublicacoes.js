@@ -27,15 +27,14 @@ export function ListaPublicacoes({ publico }) {
 
   return (
     <>
-      <div className="col-12 d-flex flex-column flex-wrap justify-content-around align-content-center p-0">
-        {publicacoes.map((publicacao) => (
-          <ItemPublicacao
-            key={publicacao.id}
-            publicacao={publicacao}
-            publico={publico}
-          />
-        ))}
-      </div>
+      <hr />
+      {publicacoes.map((publicacao) => (
+        <ItemPublicacao
+          key={publicacao.id}
+          publicacao={publicacao}
+          publico={publico}
+        />
+      ))}
       <BtnNaveg
         nomePagina={publico ? "pgPublicacoes" : "inMinhasPublicacoes"}
       />

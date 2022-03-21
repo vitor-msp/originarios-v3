@@ -18,36 +18,65 @@ export function ItemPublicacao({ publicacao, publico }) {
 
   return (
     <div>
-      <p>Id: {publicacao.id}</p>
-      <p>Título: {publicacao.titulo}</p>
-      {/* <p>Corpo: {publicacao.corpo}</p> */}
-
-      {publicacao.corpo.split("\n\n").map((par) => {
-        return <p>{par}</p>;
-      })}
-
-      <p>
-        Data: {publicacao.data === null ? null : formatarData(publicacao.data)}
-      </p>
-      {/* <p>Usuário: {publicacao.usuario} </p> */}
-
       {publico ? (
-        <NavLink
-          to={"/VerPublicacao"}
-          onClick={selecionarPublicacao}
-          className={"text-light"}
-        >
-          Selecionar
-        </NavLink>
+        <>
+          <div className="col-12 d-flex flex-row flex-wrap align-content-center">
+            <div>
+              <h1>{publicacao.titulo}</h1>
+              <br></br>
+              <div
+                style={{
+                  maxWidth: 1200,
+                  overflow: "hidden",
+                  textOverFlow: "ellipsis",
+                }}
+              >
+                <h5 style={{ maxWidth: 1200, textIndent: 50 }} align="justify">
+                  {publicacao.corpo.split("\n")[0]}
+                  {"..."}
+                </h5>
+              </div>
+              <br></br>
+              <h5>
+                {publicacao.data === null
+                  ? null
+                  : formatarData(publicacao.data)}
+              </h5>
+              <h5>Autor(a): {publicacao.usuario.assinatura} </h5>
+              <h5>Tribo/Etnia: {publicacao.usuario.tribo} </h5>
+              <br />
+              <NavLink
+                to={"/VerPublicacao"}
+                onClick={selecionarPublicacao}
+                className={"btn text-light mx-1"}
+                style={{ backgroundColor: "var(--corClara)" }}
+              >
+                Ver na íntegra
+              </NavLink>
+            </div>
+          </div>
+        </>
       ) : (
-        <NavLink
-          to={"/VerMinhaPublicacao"}
-          onClick={selecionarPublicacao}
-          className={"text-light"}
-        >
-          Selecionar
-        </NavLink>
+        <div className="col-12">
+          <h4>Título: {publicacao.titulo}</h4>
+          <br />
+          <h4>
+            Data:{" "}
+            {publicacao.data === null ? null : formatarData(publicacao.data)}
+          </h4>
+          <br />
+
+          <NavLink
+            to={"/VerMinhaPublicacao"}
+            onClick={selecionarPublicacao}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
+          >
+            Ver na íntegra
+          </NavLink>
+        </div>
       )}
+      <hr />
     </div>
   );
 }

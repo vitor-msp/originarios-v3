@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { postPublicacao, putPublicacao } from "../../api/api";
+import { actionMinhaPublicacaoSelecionada } from "../../store/actions/publicacoes/minhaPublicacaoSelecionada.action";
 
 export function EditarPublicacao({ novaPublicacao }) {
   const minhaPublicacaoSelecionada = useSelector(
@@ -31,6 +32,10 @@ export function EditarPublicacao({ novaPublicacao }) {
     }
   };
 
+  const selecionarPublicacao = () => {
+    dispatch(actionMinhaPublicacaoSelecionada(publicacao));
+  };
+
   return (
     <div>
       <Form
@@ -55,23 +60,46 @@ export function EditarPublicacao({ novaPublicacao }) {
           </Form.Group>
 
           <Form.Group className={`mb-2`}>
-            <Form.Label>Mensagem:</Form.Label>
+            <Form.Label>Texto:</Form.Label>
             <Form.Control
               id={"pubCor"}
               as={"textarea"}
               required
               maxLength={5000}
               size={5000}
+              rows={20}
+              cols={10}
               defaultValue={publicacao === null ? "" : publicacao.corpo}
             />
           </Form.Group>
         </Row>
 
         <Form.Group className="mb-3 d-flex justify-content-center">
-          <NavLink to="/minhasPublicacoes" className={"btn btn-danger"}>
-            Cancelar
-          </NavLink>
-          <input type={"submit"} value={"Salvar"} className="btn btn-primary" />
+          {novaPublicacao ? (
+            <NavLink
+              to={"/MinhasPublicacoes"}
+              className={"btn text-light mx-1"}
+              style={{ backgroundColor: "var(--corMaisEscura)" }}
+            >
+              Cancelar
+            </NavLink>
+          ) : (
+            <NavLink
+              to={"/VerMinhaPublicacao"}
+              onClick={selecionarPublicacao}
+              className={"btn text-light mx-1"}
+              style={{ backgroundColor: "var(--corMaisEscura)" }}
+            >
+              Cancelar
+            </NavLink>
+          )}
+
+          <input
+            type={"submit"}
+            value={"Salvar"}
+            className="btn text-light mx-1"
+            style={{ backgroundColor: "var(--corClara)" }}
+          />
         </Form.Group>
       </Form>
     </div>
