@@ -18,36 +18,60 @@ export function ItemProduto({ produto, publico }) {
   };
 
   return (
-    <div>
-      <p>Id: {produto.id}</p>
-      <p>Título: {produto.titulo}</p>
-      {/* <p>Descrição: {produto.descricao}</p> */}
-      {/* <p>Corpo: {produto.corpo} </p> */}
-      <p>Valor: {produto.valor === null ? null : formatarMoeda(produto.valor)} </p>
-
-      {produto.imagem1 !== null && (
-        <img src={getImagem(produto.imagem1.id)} alt={produto.imagem1.nome} />
-      )}
-
-      {/* <p>Usuário: {produto.usuario} </p> */}
-
-      {publico ? (
-        <NavLink
-          to={"/VerProduto"}
-          onClick={selecionarProduto}
-          className={"text-light"}
+    <div
+      className="my-3"
+      style={{
+        minWidth: 250,
+        maxHeight: 300,
+        boxSizing: "border-box",
+      }}
+    >
+      <div className="my-2" style={{ textAlign: "center" }}>
+        <h4>{produto.titulo}</h4>
+        <h6
+          style={{
+            maxWidth: 270,
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+            textAlign: "center",
+          }}
         >
-          Selecionar
-        </NavLink>
-      ) : (
-        <NavLink
-          to={"/VerMeuProduto"}
-          onClick={selecionarProduto}
-          className={"text-light"}
-        >
-          Selecionar
-        </NavLink>
-      )}
+          {produto.descricao}
+        </h6>
+
+        <h5>{produto.valor === null ? null : formatarMoeda(produto.valor)} </h5>
+
+        {produto.imagem1 !== null && (
+          <img
+            src={getImagem(produto.imagem1.id)}
+            alt={produto.imagem1.nome}
+            style={{ width: 110, height: 110, borderRadius: 20 }}
+          />
+        )}
+      </div>
+
+      <div style={{ position: "relative", textAlign: "center" }}>
+        {publico ? (
+          <NavLink
+            to={"/VerProduto"}
+            onClick={selecionarProduto}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
+          >
+            Selecionar
+          </NavLink>
+        ) : (
+          <NavLink
+            to={"/VerMeuProduto"}
+            onClick={selecionarProduto}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
+          >
+            Selecionar
+          </NavLink>
+        )}
+      </div>
     </div>
   );
 }

@@ -25,6 +25,8 @@ export function ImagemCrop({ imgInicial, imgFinal }) {
   };
 
   const obterCropImg = () => {
+    if (src === null) return;
+
     const canvas = document.createElement("canvas");
     const scaleX = imagem.naturalWidth / imagem.width;
     const scaleY = imagem.naturalHeight / imagem.height;
@@ -106,7 +108,7 @@ export function ImagemCrop({ imgInicial, imgFinal }) {
   return (
     <>
       <Form.Group className={`mb-2`}>
-        <Form.Label>Imagem:</Form.Label>
+        <Form.Label></Form.Label>
         <Form.Control
           type={"file"}
           accept={"image/*"}
@@ -123,14 +125,21 @@ export function ImagemCrop({ imgInicial, imgFinal }) {
         <button
           type="button"
           onClick={obterCropImg}
-          className={`btn btn-${result === null ? "danger" : "success" }`}
+          className={`btn btn-${result === null ? "danger" : "success"}`}
+          style={{ backgroundColor: "var(--corClara)" }}
         >
-          {result === null ? "Salvar" : "Salvo" }
+          {result === null ? "Salvar" : "Salvo"}
         </button>
       </div>
+      <br />
+      <br />
       <div>
-        <img src={result} className="img-fluid" alt="imagem a ser salva" />
+        {result !== null && (
+          <img src={result} className="img-fluid" alt="imagem a ser salva" />
+        )}
       </div>
+      <br />
+      <br />
     </>
   );
 }

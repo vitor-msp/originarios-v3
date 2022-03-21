@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import { ImagemCrop } from "./ImagemCrop";
 import { postProduto, putProduto } from "../../api/api";
-import { useState } from "react";
+import { actionMeuProdutoSelecionado } from "../../store/actions/produtos/meuProdutoSelecionado.action";
 
 export function EditarProduto({ novoProduto }) {
   const [img1Final, setImg1Final] = useState(null);
@@ -42,6 +43,10 @@ export function EditarProduto({ novoProduto }) {
     }
   };
 
+  const selecionarProduto = () => {
+    dispatch(actionMeuProdutoSelecionado(produto));
+  };
+
   return (
     <div>
       <Form
@@ -52,6 +57,8 @@ export function EditarProduto({ novoProduto }) {
         }}
         className="col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6"
       >
+        <h4>Informações do produto: </h4>
+        <br></br>
         <Row className="my-3">
           <Form.Group className={`mb-2`}>
             <Form.Label>Título:</Form.Label>
@@ -99,6 +106,9 @@ export function EditarProduto({ novoProduto }) {
             />
           </Form.Group>
 
+          <h4>Selecionar imagens: </h4>
+          <br></br>
+
           <ImagemCrop
             imgInicial={produto === null ? null : produto.imagem1}
             imgFinal={setImg1Final}
@@ -118,10 +128,30 @@ export function EditarProduto({ novoProduto }) {
         </Row>
 
         <Form.Group className="mb-3 d-flex justify-content-center">
-          <NavLink to="/meusProdutos" className={"btn btn-danger"}>
-            Cancelar
-          </NavLink>
-          <input type={"submit"} value={"Salvar"} className="btn btn-primary" />
+          {novoProduto ? (
+            <NavLink
+              to={"/MeusProdutos"}
+              className={"btn text-light mx-1"}
+              style={{ backgroundColor: "var(--corMaisEscura)" }}
+            >
+              Cancelar
+            </NavLink>
+          ) : (
+            <NavLink
+              to={"/VerMeuProduto"}
+              onClick={selecionarProduto}
+              className={"btn text-light mx-1"}
+              style={{ backgroundColor: "var(--corMaisEscura)" }}
+            >
+              Cancelar
+            </NavLink>
+          )}
+          <input
+            type={"submit"}
+            value={"Salvar"}
+            className={"btn text-light mx-1"}
+            style={{ backgroundColor: "var(--corClara)" }}
+          />
         </Form.Group>
       </Form>
     </div>
