@@ -100,7 +100,7 @@ export function Navbar() {
                     </NavLink>
                   </li>
                   <li className="nav-item d-sm-block d-lg-none">
-                    <NavLink to={"/"} onClick={logout} className={"text-light"}>
+                    <NavLink to={"/"} onClick={logout} className={"nav-link text-light"}>
                       Sair
                     </NavLink>
                   </li>
@@ -137,7 +137,7 @@ export function Navbar() {
             <NavLink
               to={"/"}
               onClick={logout}
-              className={"text-light d-none d-lg-block d-xl-block"}
+              className={"nav-link text-light d-none d-lg-block d-xl-block"}
             >
               Sair
             </NavLink>

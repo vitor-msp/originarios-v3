@@ -172,7 +172,7 @@ export function PaginaHome() {
             <h4 className="text-center">
               A plataforma Originários foi desenvolvida durante a Recode Pro
               2021. Como projeto final, os alunos do Squad 41 escolheram o tema
-              Indígenas e criaram está plataforma, que tem o objetivo de trazer
+              Indígenas e criaram esta plataforma, que tem o objetivo de trazer
               mais visibilidade aos produtores indígenas e divulgar a riqueza de
               sua cultura.
             </h4>
@@ -210,13 +210,13 @@ export function PaginaHome() {
         <div className="container text-center alunosRecode" data-aos="zoom-in">
           <div className="text-center mb-5 text-white">
             <h2 className="section-heading text-uppercase">
-              Equipe Desenvolvedores
+              Equipe de Desenvolvedores
             </h2>
             <h3
               className="section-subheading text-white"
               style={{ color: "#ffc800 !important" }}
             >
-              Alunos Recode Pro - Squad 41.
+              Alunos Recode Pro - Squad 41
             </h3>
           </div>
           <div className="row text-white">
@@ -234,7 +234,7 @@ export function PaginaHome() {
                 />
                 <h4 style={{ color: "#365902 !important" }}>Andryele Pires</h4>
                 <p className="" style={{ color: "#365902 !important" }}>
-                  Developer
+                  Desenvolvedor
                 </p>
 
                 <a
@@ -300,7 +300,7 @@ export function PaginaHome() {
                 />
                 <h4 style={{ color: "#365902 !important" }}>Amanda Santos</h4>
                 <p className="" style={{ color: "#365902 !important" }}>
-                  Developer
+                  Desenvolvedor
                 </p>
 
                 <a
@@ -366,7 +366,7 @@ export function PaginaHome() {
                 />
                 <h4 style={{ color: "#365902 !important" }}>Carla Ribeiro</h4>
                 <p className="" style={{ color: "#365902 !important" }}>
-                  Developer
+                  Desenvolvedora frontend
                 </p>
 
                 <a
@@ -432,7 +432,7 @@ export function PaginaHome() {
                 />
                 <h4 style={{ color: "#365902 !important" }}>Diego Costa</h4>
                 <p className="" style={{ color: "#365902 !important" }}>
-                  Developer
+                  Desenvolvedor
                 </p>
 
                 <a
@@ -498,13 +498,13 @@ export function PaginaHome() {
                 />
                 <h4 style={{ color: "#365902 !important" }}>John Michael</h4>
                 <p className="" style={{ color: "#365902 !important" }}>
-                  Developer
+                  Desenvolvedor
                 </p>
 
                 <a
                   className="btn btn-dark btn-social mx-2 justify-content-center"
                   style={{ width: "2.5rem", height: "2.5rem" }}
-                  href="https://github.com/JohnMichaelDeveloper"
+                  href="https://github.com/JohnMichaelDesenvolvedor"
                   target="blank"
                 >
                   <svg
@@ -564,7 +564,7 @@ export function PaginaHome() {
                 />
                 <h4 style={{ color: "#365902 !important" }}>Vitor Mateus</h4>
                 <p className="" style={{ color: "#365902 !important" }}>
-                  Developer
+                  Desenvolvedor backend
                 </p>
 
                 <a
