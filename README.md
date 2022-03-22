@@ -14,7 +14,7 @@ Veja a demo do site em: demo/demo.mp4
 </div>
 
 #### Modelagem Entidade-Relacionamento
-![Modelagem Entidade-Relacionamento](./banco-de-dados/modelagem_ER.png)
+![Modelagem Entidade-Relacionamento](./banco-de-dados/modelagem_ER.PNG)
 
 #### Instalação e Configuração
 
