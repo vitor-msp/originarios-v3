@@ -24,7 +24,7 @@ import {
   actionPutMeusDados,
 } from "../store/actions/meusDados/meusDados.action";
 
-export const url = `https://originarios.herokuapp.com`;
+export const url = `http://localhost:8080`;
 const msgErroServ = "Erro na comunicação com o servidor!";
 
 const tratarErro =
