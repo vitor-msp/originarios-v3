@@ -7,6 +7,8 @@ Versão 3: ReactJS, Spring, PostgreSQL.
 
 Link da aplicação funcional: <a href="https://originarios.herokuapp.com/" target="_blank">Originários</a>
 
+Veja a demo do site em: demo/demo.mp4
+
 <div align="center">
   <img alt="readme" title="readme" src="./gif/readme.gif"/>
 </div>
