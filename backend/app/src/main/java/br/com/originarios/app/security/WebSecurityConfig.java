@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,28 +25,43 @@ import br.com.originarios.app.security.services.UserDetailsServiceImpl;
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private static final String 
+	API_IMAGENS = "/api/imagens/**";
+
+	private static final String API_PUBLICACOES = "/api/publicacoes";
+
+	private static final String API_PRODUTOS = "/api/produtos";
+
+	private static final String API_CONTATO = "/api/contato";
+
+	private static final String STRING = "/*";
+
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 	
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
+
+	private ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry authenticated;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors()
+		String string2 = "/static/**";
+		String string3 = "/api/auth/**";
+		authenticated = http.cors()
 			.and()
 			.csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 			.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 			.authorizeRequests()
-			.antMatchers("/*").permitAll()
-			.antMatchers("/static/**").permitAll()
-			.antMatchers("/api/auth/**").permitAll()
-			.antMatchers("/api/contato").permitAll()
-			.antMatchers("/api/produtos").permitAll()
-			.antMatchers("/api/publicacoes").permitAll()
-			.antMatchers("/api/imagens/**").permitAll()
+			.antMatchers(STRING).permitAll()
+			.antMatchers(string2).permitAll()
+			.antMatchers(string3).permitAll()
+			.antMatchers(API_CONTATO).permitAll()
+			.antMatchers(API_PRODUTOS).permitAll()
+			.antMatchers(API_PUBLICACOES).permitAll()
+			.antMatchers(API_IMAGENS).permitAll()
 			.anyRequest().authenticated();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
