@@ -1,0 +1,5 @@
+target
+application.properties.sample
+.gitignore
+.dockerignore
+Dockerfile
