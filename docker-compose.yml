@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+
+  db:
+    container_name: db
+    image: postgres
+    restart: always
+    env_file: .env
+    networks:
+      - originarios-net
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  back:
+    container_name: back
+    image: vitormsp/originarios-back
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - originarios-net
+    depends_on:
+      - db
+
+  front:
+    container_name: front
+    image: vitormsp/originarios-front
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - back
+
+volumes:
+  db_data:
+
+networks:
+  originarios-net:
+    driver: bridge
