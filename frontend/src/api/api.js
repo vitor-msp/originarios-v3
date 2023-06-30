@@ -24,7 +24,7 @@ import {
   actionPutMeusDados,
 } from "../store/actions/meusDados/meusDados.action";
 
-export const url = `http://localhost:8080`;
+export const url = `${process.env.REACT_APP_BACKEND_URL}`;
 const msgErroServ = "Erro na comunicação com o servidor!";
 
 const tratarErro =
